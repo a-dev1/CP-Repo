@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "algorithm": "cpp",
+    "string": "cpp",
+    "iosfwd": "cpp",
+    "iostream": "cpp",
+    "xtree": "cpp",
+    "xutility": "cpp"
+  },
+  "cSpell.ignoreWords": [
+    "gcd"
+  ],
+  "cSpell.words": [
+    "lbenefit",
+    "rbenefit"
+  ]
+}
