@@ -3,42 +3,41 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#define int long long
+
 using namespace std;
 
-signed main() {
-  int t, sx, sy, ex, ey;
-  cin >> t >> sx >> sy >> ex >> ey;
-  string s;
-  cin >> s;
-  if (sx == ex and ex == ey) {
-    cout << 1 << "\n";
-    return 0;
+#define ar array
+#define ll long long
+
+const int MAX_N = 1e5 + 1;
+const ll MOD = 1e9 + 7;
+const ll INF = 1e9;
+
+void solve() {}
+
+int main() {
+  int t, x1, y1, fx, fy, answer = 0;
+  cin >> t >> x1 >> y1 >> fx >> fy;
+  string input;
+  cin >> input;
+  for (auto c : input) {
+    if (x1 == fx && y1 == fy) break;
+    if (fx > x1 && c == 'E') {
+      x1++;
+    } else if (fx < x1 && c == 'W')
+      x1--;
+    else if (fy > y1 && c == 'N')
+      y1++;
+    else if (fy < y1 && c == 'S')
+      y1--;
+    answer++;
   }
 
-  int i;
-  int cnt = 0;
-  for (i = 0; i < s.length(); ++i) {
-    if (sx == ex and sy == ey) {
-      // cout << "hello\n";
-      break;
-    }
-    if (sx > ex and s[i] == 'W') {
-      sx--;
-    } else if (sx < ex and s[i] == 'E') {
-      sx++;
-    }
-
-    else if (sy > ey and s[i] == 'S') {
-      sy--;
-    } else if (sy < ey and s[i] == 'N') {
-      sy++;
-    }
-    cnt++;
+  if (x1 == fx && y1 == fy) {
+    cout << answer;
+  } else {
+    cout << -1;
   }
-  // cout << cnt <<"\n";
-  if (cnt = t)
-    cout << "-1\n";
-  else
-    cout << cnt << "\n";
+
+  return 0;
 }
