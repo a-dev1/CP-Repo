@@ -16,25 +16,41 @@ const ll INF = 1e9;
 void solve() {}
 
 int main() {
-  int tc;
+  ll tc;
   cin >> tc;
   while (tc--) {
-    int n, ans = 0;
+    ll n;
     cin >> n;
-    // vector<int> arr(n);
-    set<int> all;
+    vector<ll> arr(n + 1);
     for (int i = 1; i <= n; i++) {
-      int temp;
-      cin >> temp;
-      if (temp <= 7) all.insert(temp);
-      ans = i;
-      if (all.size() == 7) {
-        ans = i;
-        // cout << "it broked i: " << i << endl;
-        break;
+      cin >> arr[i];
+    }
+    for (int i = n; i >= 1; --i) {
+      if (arr[i] <= 7) {
+        cout << i << endl;
+        goto dd;
       }
     }
-    cout << ans << endl;
+  dd:;
   }
   return 0;
 }
+
+// while (tc--) {
+//   int n, ans = 0;
+//   cin >> n;
+//   // vector<int> arr(n);
+//   set<int> all;
+//   for (int i = 1; i <= n; i++) {
+//     int temp;
+//     cin >> temp;
+//     if (temp <= 7) all.insert(temp);
+//     ans = i;
+//     if (all.size() == 7) {
+//       ans = i;
+//       // cout << "it broked i: " << i << endl;
+//       break;
+//     }
+//   }
+//   cout << ans << endl;
+// }
