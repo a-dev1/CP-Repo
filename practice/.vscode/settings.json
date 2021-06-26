@@ -1,5 +1,8 @@
 {
   "cSpell.words": [
     "and"
-  ]
+  ],
+  "files.associations": {
+    "utility": "cpp"
+  }
 }
