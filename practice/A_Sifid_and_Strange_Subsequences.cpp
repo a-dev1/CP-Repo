@@ -30,39 +30,19 @@ int main() {
     }
 
     sort(arr.begin(), arr.end());
-    int count = 1;
-    for (int i = 1; i < n; i++) {
-      int max = arr[i];
-      if (arr[i] == 0 && arr[i - 1] == 0) {
+    if(arr.size() == 1) {
+      
+    }
+    int count = 1, minDiff = abs(arr[0] - arr[1]);
+    for (int i = 2; i < n; i++) {
+      if (abs(arr[i] - arr[i - 1]) < minDiff)
+        minDiff = abs(arr[i] - arr[i - 1]);
+      if (n <= 0) {
         count++;
-        i++;
-        while (true) {
-          if (arr[i] == 0 && arr[i - 1] == 0) {
-            count++;
-            i++;
-          } else
-            break;
-        }
-      } else if (arr[i] == arr[i - 1]) {
-        // cout << "count: " << count << endl;
-        if (i == 1) {
-          count++;
-          i++;
-          while (true) {
-            if (arr[i] == arr[i - 1]) {
-              count++;
-              i++;
-            } else
-              break;
-          }
-        } else {
-          break;
-        }
       } else {
-        if (abs(arr[i] - arr[i - 1]) < max) {
-          break;
-        } else {
+        if (arr[i] <= minDiff) {
           count++;
+          break;
         }
       }
     }
