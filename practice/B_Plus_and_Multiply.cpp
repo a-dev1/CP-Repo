@@ -23,15 +23,29 @@ int main() {
   while (tc--) {
     ll n, a, b;
     cin >> n >> a >> b;
-
-    if (n % a == 0 || n % b == 0) {
-      cout << "Yes\n";
+    // Edge case
+    if (a == 1) {
+      if ((n - 1) % b == 0) {
+        cout << "Yes\n";
+      } else {
+        cout << "No\n";
+      }
     } else {
-      cout << "No\n";
+      // a^x + yb == n ? "Yes" : "No";
+      ll count = 0;
+      bool temp = false;
+      ll t = 1;
+      while (t <= n) {
+        // cout << "t:" << t << endl;
+        if ((n - t) % b == 0) {
+          cout << "Yes\n";
+          temp = true;
+          break;
+        }
+        t = t * a;
+      }
+      if (!temp) cout << "No\n";
     }
-
-    // ans ? cout << "Yes\n" : cout << "No\n";
-    // for (auto it = s.begin(); it != s.end(); it++) cout << *it << " ";
   }
   return 0;
 }
