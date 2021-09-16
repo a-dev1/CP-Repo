@@ -3,6 +3,8 @@
     "and"
   ],
   "files.associations": {
-    "utility": "cpp"
+    "utility": "cpp",
+    "xstring": "cpp",
+    "unordered_map": "cpp"
   }
 }

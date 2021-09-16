@@ -33,8 +33,8 @@ int main() {
   cout << "Nmms: size " << s;
   if (s == 2) {
     cout << 1;
-  } else if(nums.size() == n){
-    cout << (s * (s - 1)) / 2;
+  } else if (nums.size() == n) {
+    cout << (s * (s - 1)) / 2;  // Total pairs possible
   }
   return 0;
 }
