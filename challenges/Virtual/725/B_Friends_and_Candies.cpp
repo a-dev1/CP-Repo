@@ -21,26 +21,23 @@ int main() {
   int tc;
   cin >> tc;
   while (tc--) {
-    int n, temp = 0, level = 0;
+    int n;
     cin >> n;
-    temp = n;
-    while (temp > 0) {
-      level++;
-      temp = temp / 10;
+    vector<int> arr(n);
+    int sum = 0;
+    for (auto &i : arr) {
+      cin >> i;
+      sum += i;
     }
-    if (level == 1) {
-      cout << n << "\n";
-    } else {
-      temp = level;
-      string s;
-      // cout << "temp:" << temp << endl;
-      while (temp) {
-        s += '1';
-        temp--;
-      }
-      // cout << s << "\n";
-      cout << (level - 1) * 9 + (n / stoi(s)) << "\n";
+    if (sum % n != 0) {
+      cout << -1 << "\n";
+      continue;
     }
+    int part = sum / n, ans = 0;
+    for (auto i : arr) {
+      if (i > part) ans++;
+    }
+    cout << ans << "\n";
   }
   return 0;
 }

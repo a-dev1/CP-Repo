@@ -5,6 +5,8 @@
   "files.associations": {
     "utility": "cpp",
     "xstring": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "iostream": "cpp"
   }
 }

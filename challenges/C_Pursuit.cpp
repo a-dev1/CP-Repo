@@ -18,7 +18,23 @@ const ll MOD = 1e9 + 7;
 const ll INF = 1e9;
 
 int main() {
-  cout << (char)(97 + 1);
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    int n, sum1 = 0, sum2 = 0;
+    cin >> n;
+    vector<int> arr1(n), arr2(n);
+    for (auto &i : arr1) {
+      cin >> i;
+      sum1 += i;
+    }
+    for (auto &i : arr2) {
+      cin >> i;
+      sum2 += i;
+    }
 
+    
+
+  }
   return 0;
 }

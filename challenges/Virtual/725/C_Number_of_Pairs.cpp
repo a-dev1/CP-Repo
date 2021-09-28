@@ -18,7 +18,7 @@ const ll MOD = 1e9 + 7;
 const ll INF = 1e9;
 
 int main() {
-  cout << (char)(97 + 1);
-
+  vector<int> arr(5);
+  cout << (arr.begin()) + 1;
   return 0;
 }
