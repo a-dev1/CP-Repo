@@ -39,7 +39,13 @@ int main() {
 
   partial_sum(arr.begin(), arr.end(), result.begin(), accTry);
 
-  for (auto i : result) cout << "i:" << i << endl;
+  int k = 0;
+  while (--k) {
+    cout << "Hello -1"
+         << "\n";
+  }
+
+  // for (auto i : result) cout << "i:" << i << endl;
 
   return 0;
 }
