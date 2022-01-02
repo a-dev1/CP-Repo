@@ -81,33 +81,49 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-int n, k;
-vector<int> arr;
+double ans1, ans2;
+bool ok(double x, double num1, double num2, int d) {
+  num1 = num1 - x;
+  num2 = num2 + x;
 
-bool ok(double x) {
-  int sum = 0;
-  for (auto i : arr) sum += floor(i / x);
-
-  return sum >= k;
-}
-
-int main() {
-  cin >> n >> k;
-  arr.resize(n);
-  for (auto &i : arr) cin >> i;
-
-  double l = 0, r = 1e8;
-
-  for (int i = 0; i < 100; i++) {
-    double mid = (l + r) / 2;
-    // cout << l << " " << r << " " << mid << '\n';
-    if (ok(mid))
-      l = mid;
-    else
-      r = mid;
+  if (abs((num1 * num2) - d) <= 1e-10) {
+    ans1 = num1;
+    ans2 = num2;
   }
 
-  cout << setprecision(20) << l;
+  return (num1 * num2) > d;
+}
+
+signed main() {
+  int t;
+  cin >> t;
+  while (t--) {
+    int d;
+    cin >> d;
+    ans1 = -1, ans2 = -1;
+    double l = 0, h = 1;
+    double num1 = d - 1, num2 = 1;
+
+    for (int i = 0; i < 100; i++) {
+      double mid = (l + h) / 2;
+      if (ok(mid, num1, num2, d))
+        h = mid;
+      else
+        l = mid;
+    }
+
+    if (d == 0) {
+      cout <<"Y" <<" " << 0 << " " << 0 << '\n';
+      continue;
+    }
+
+    if (ans1 == -1 && ans2 == -1) {
+      cout << "N\n";
+      continue;
+    }
+    cout << setprecision(20);
+    cout << "Y " << ans1 << " " << ans2 << '\n';
+  }
   return 0;
 }
 

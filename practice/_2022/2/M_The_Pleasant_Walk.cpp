@@ -81,33 +81,21 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-int n, k;
-vector<int> arr;
 
-bool ok(double x) {
-  int sum = 0;
-  for (auto i : arr) sum += floor(i / x);
-
-  return sum >= k;
-}
-
-int main() {
+signed main() {
+  int n, k, ans = 1;
   cin >> n >> k;
-  arr.resize(n);
-  for (auto &i : arr) cin >> i;
+  int l = 1;
+  vector<int> arr(10000000);
 
-  double l = 0, r = 1e8;
-
-  for (int i = 0; i < 100; i++) {
-    double mid = (l + r) / 2;
-    // cout << l << " " << r << " " << mid << '\n';
-    if (ok(mid))
-      l = mid;
-    else
-      r = mid;
+  for (int i = 1; i <= n; ++i) {
+    int temp;
+    cin >> temp;
+    arr[i] = temp;
+    if (i != 1 && arr[i] == arr[i - 1]) l = i;
+    ans = max(ans, i - l + 1);
   }
-
-  cout << setprecision(20) << l;
+  cout << ans << endl;
   return 0;
 }
 
