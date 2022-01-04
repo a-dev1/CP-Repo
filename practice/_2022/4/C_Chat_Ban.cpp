@@ -1,5 +1,5 @@
-// #include <cstdio.h>
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef unsigned long long ull;
@@ -80,62 +80,43 @@ void _print(map<T, V> v) {
   cerr << "]";
 }
 
-using namespace std;
+///////////////////////////////////////////////////////////////
+ll k, x, ans = 0;
+bool ok(ll y) {
+  ll sum = 0;
+  if (y <= k) {
+    sum += ((y * (y + 1LL)) / 2LL);
+  } else {
+    sum += ((k * (k + 1LL)) / 2LL);
+    ll temp = ((2 * k) - 1) - y;
+    ll tp = (((k - 1) * (k)) / 2LL) - (((temp) * (temp + 1)) / 2);
+    sum += tp;
+  }
+  debug(sum) debug(k) if (sum <= x) ans = y;
+  return sum > x;
+}
 
-int main() {
+signed main() {
   int t;
-  scanf("%d", &t);
+  cin >> t;
   while (t--) {
-    int n;
-    scanf("%d", &n);
+    cin >> k >> x;
+    ll l = 0, r = x;
+    for (int i = 0; i <= 10; i++) {
+      ll m = l + (r - l) / 2LL;
 
-    map<int, int> m;
-
-    int j = 2 * n, i = 1, a, b;
-
-    printf("? %d", i);
-    printf("\n\n");
-    fflush(stdout);
-
-    scanf("%d", &a);
-
-    printf("? %d", i);
-    printf("\n\n");
-    fflush(stdout);
-
-    scanf("%d", &b);
-
-    m[a] = b;
-    debug(a) debug(b)
-
-        while (j != 0) {
-      if (m.size() == n) break;
-      int temp;
-
-      printf("? %d\n\n", i);
-      fflush(stdout);
-
-      scanf("%d", &temp);
-
-      debug(b) debug(temp) debug(m)
-
-          if (m.count(b)) i++;
-      else {
-        m[b] = temp;
-        b = temp;
-      }
-      j--;
+      debug(m) debug(l) debug(r) if (ok(m)) r = m;
+      else l = m;
     }
-
-    printf("! ");
-    // for (int i = 1; i <= n; i++) {
-    //   printf("%d ", arr[i]);
-    // }
-    for (auto i : m) {
-      printf("%d ", i.second);
-    }
-    printf("\n\n");
-    fflush(stdout);
+    debug(l) debug(r) debug("exit")
+        // cout << ans << '\n';
+        // cout
+        // << r << '\n';
+        cout
+        << l << "\n";
+    debug(l) debug(r) debug(ans)
   }
   return 0;
 }
+
+///////////////////////////////////////////////////////////////
