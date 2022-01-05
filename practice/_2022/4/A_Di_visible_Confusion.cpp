@@ -16,7 +16,7 @@ int main() {
           found = true;
           break;
         }
-      }
+     }
       ok &= found;
     }
     if (ok) {
