@@ -92,8 +92,8 @@ bool ok(ll y) {
     ll tp = (((k - 1) * (k)) / 2LL) - (((temp) * (temp + 1)) / 2);
     sum += tp;
   }
-  debug(sum) debug(k) if (sum <= x) ans = y;
-  return sum > x;
+  if (sum <= x) ans = y;
+  return sum >= x;
 }
 
 signed main() {
@@ -101,20 +101,16 @@ signed main() {
   cin >> t;
   while (t--) {
     cin >> k >> x;
-    ll l = 0, r = x;
-    for (int i = 0; i <= 10; i++) {
+    ll l = 0, r = (2LL * k) - 1LL;
+    for (int i = 0; i < 100; i++) {
       ll m = l + (r - l) / 2LL;
 
-      debug(m) debug(l) debug(r) if (ok(m)) r = m;
-      else l = m;
+      if (ok(m))
+        r = m;
+      else
+        l = m;
     }
-    debug(l) debug(r) debug("exit")
-        // cout << ans << '\n';
-        // cout
-        // << r << '\n';
-        cout
-        << l << "\n";
-    debug(l) debug(r) debug(ans)
+    cout << r << endl;
   }
   return 0;
 }
