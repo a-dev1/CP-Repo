@@ -83,35 +83,41 @@ void _print(map<T, V> v) {
 ///////////////////////////////////////////////////////////////
 
 signed main() {
-  int t;
-  cin >> t;
-  while (t--) {
-    int n;
-    cin >> n;
-    vector<pair<char, int>> arr(n);
+  ll n, sum = 0LL;
+  cin >> n;
+  vector<pair<ll, ll>> arr(n);
+  vector<ll> ans;
 
-    // vector<int> arr1(n);
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].second;
+  for (ll i = 0LL; i < n; i++) {
+    cin >> arr[i].first;
+    arr[i].second = i + 1LL;
+    sum += arr[i].first;
+  }
+
+  sort(all(arr));
+  ll last = arr[n - 1LL].first;
+  sum = sum - last;
+
+  // debug(sum)
+
+  for (ll i = 0LL; i < n - 1LL; i++) {
+    if (sum - arr[i].first == last) {
+      ans.push_back(arr[i].second);
     }
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].first;
-    }
+  }
 
-     sort(all(arr));
-    //  debug(arr)
+  ll secondLast = arr[n-2LL].first;
+  sum -= secondLast;
+  // debug(sum)
+  // debug(secondLast)
+  
+  if(sum == secondLast) {
+    ans.push_back(arr[n-1LL].second);
+  }
 
-    bool possible = true;
-    for(int i = 0; i < n; i++) {
-      if((arr[i].second > i+1 && arr[i].first == 'R') || (arr[i].second < i+1 && arr[i].first == 'B')) {
-        cout << "NO\n";
-        possible = false;
-        break;
-      }
-    }
-
-    if(possible) 
-      cout << "YES\n";
+  cout << ans.size() << '\n';
+  for (ll i = 0LL; i < ans.size(); i++) {
+    cout << ans[i] << " ";
   }
   return 0;
 }

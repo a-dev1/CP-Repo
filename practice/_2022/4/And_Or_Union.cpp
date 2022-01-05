@@ -88,30 +88,21 @@ signed main() {
   while (t--) {
     int n;
     cin >> n;
-    vector<pair<char, int>> arr(n);
+    vector<int> arr(n);
+    vector<int> ans;
+    int prev;
+    for (auto &i : arr) {
+      cin >> i;
 
-    // vector<int> arr1(n);
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].second;
-    }
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].first;
-    }
-
-     sort(all(arr));
-    //  debug(arr)
-
-    bool possible = true;
-    for(int i = 0; i < n; i++) {
-      if((arr[i].second > i+1 && arr[i].first == 'R') || (arr[i].second < i+1 && arr[i].first == 'B')) {
-        cout << "NO\n";
-        possible = false;
-        break;
-      }
+      // prev = i;
     }
 
-    if(possible) 
-      cout << "YES\n";
+    if (arr.size() > 2) {
+      cout << (arr[0] + arr[n - 1]) << '\n';
+    }
+    else {
+      cout << (arr[0] & arr[n-1]) << '\n';
+    }
   }
   return 0;
 }

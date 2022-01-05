@@ -92,7 +92,7 @@ bool ok(ll y) {
     ll tp = (((k - 1) * (k)) / 2LL) - (((temp) * (temp + 1)) / 2);
     sum += tp;
   }
-  if (sum <= x) ans = y;
+  if (sum <= x) ans = sum;
   return sum >= x;
 }
 
@@ -109,10 +109,11 @@ signed main() {
         r = m;
       else
         l = m;
+
+      if (ans == x) break;
     }
     cout << r << endl;
   }
   return 0;
 }
-
 ///////////////////////////////////////////////////////////////

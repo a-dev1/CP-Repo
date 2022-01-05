@@ -86,32 +86,35 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    int n;
+    ll n, sum = 0LL;
     cin >> n;
-    vector<pair<char, int>> arr(n);
-
-    // vector<int> arr1(n);
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].second;
+    vector<int> arr(n);
+    for (auto &i : arr) {
+      cin >> i;
+      sum += i;
     }
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].first;
-    }
+    sort(all(arr));
 
-     sort(all(arr));
-    //  debug(arr)
+    ll mean = sum / n, median;
+    if (n % 2 == 0) {
+      median = arr[(n / 2) - 1];
+    } else
+      median = arr[((n + 1) / 2) - 1];
 
-    bool possible = true;
-    for(int i = 0; i < n; i++) {
-      if((arr[i].second > i+1 && arr[i].first == 'R') || (arr[i].second < i+1 && arr[i].first == 'B')) {
-        cout << "NO\n";
-        possible = false;
-        break;
-      }
+    debug(mean) debug(median) debug(arr) if (mean == median) {
+      cout << 0 << '\n';
+      continue;
     }
 
-    if(possible) 
-      cout << "YES\n";
+    ll increased = 0LL;
+    while (mean != median) {
+      sum += n;
+      increased += n;
+      mean = sum / n;
+      median += n;
+    }
+
+    // ll l = 0, r = sum;
   }
   return 0;
 }

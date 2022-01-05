@@ -86,34 +86,31 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    int n;
-    cin >> n;
-    vector<pair<char, int>> arr(n);
-
-    // vector<int> arr1(n);
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].second;
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> v(n);
+    for (auto& it : v) cin >> it;
+    sort(all(v));
+    vector<ll> v1, v2;
+    for (auto it : v) {
+      if (it < 0)
+        v1.push_back(-it);
+      else if (it > 0)
+        v2.push_back(it);
     }
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].first;
-    }
-
-     sort(all(arr));
-    //  debug(arr)
-
-    bool possible = true;
-    for(int i = 0; i < n; i++) {
-      if((arr[i].second > i+1 && arr[i].first == 'R') || (arr[i].second < i+1 && arr[i].first == 'B')) {
-        cout << "NO\n";
-        possible = false;
-        break;
-      }
-    }
-
-    if(possible) 
-      cout << "YES\n";
+    reverse(all(v2));
+    // debug(v)
+    // debug(v1)
+    // debug(v2)
+    ll ans = 0;
+    for (int i = 0; i < v1.size(); i += k) ans += v1[i] * 2;
+    for (int i = 0; i < v2.size(); i += k) ans += v2[i] * 2;
+    // debug(ans)
+    ans -= max(abs(v[0]), abs(v.back()));
+    cout << ans << endl;
   }
   return 0;
+  // return 0;
 }
 
 ///////////////////////////////////////////////////////////////

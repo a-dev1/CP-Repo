@@ -86,32 +86,42 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    int n;
+    ll n;
     cin >> n;
-    vector<pair<char, int>> arr(n);
-
-    // vector<int> arr1(n);
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].second;
-    }
-    for (int i = 0; i < n; i++) {
-      cin >> arr[i].first;
+    vector<ll> arr(n);
+    map<int, int> m;
+    for (auto &i : arr) {
+      cin >> i;
+      m[i]++;
     }
 
-     sort(all(arr));
-    //  debug(arr)
-
-    bool possible = true;
-    for(int i = 0; i < n; i++) {
-      if((arr[i].second > i+1 && arr[i].first == 'R') || (arr[i].second < i+1 && arr[i].first == 'B')) {
-        cout << "NO\n";
-        possible = false;
-        break;
+    auto it = m.begin();
+    if (m.size() == 1) {
+      for (int i = 0; i < n; i++) {
+        if (it->first % (i + 1) == 0) cout << i + 1 << " ";
       }
+      cout << '\n';
+      continue;
     }
 
-    if(possible) 
-      cout << "YES\n";
+    if (m.size() == 1 && it->second == 1) {
+      cout << 1 << '\n';
+      continue;
+    }
+
+    if (m.size() == n) {
+      for (int i = 1; i <= n / 2; i++) {
+        if (n % i == 0) {
+          cout << i << " ";
+        }
+      }
+      cout << '\n';
+      continue;
+    }
+
+
+
+    debug(m)
   }
   return 0;
 }
