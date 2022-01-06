@@ -81,70 +81,55 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-struct Test {
-  ll t, z, y;
-};
-
-void printt(vector<Test> arr) {
-  cerr << "[";
-  for (auto i : arr) {
-    cerr << " { " << i.t << ", " << i.z << ", " << i.y << " }";
+vector<ll> arr;
+string str1, str2;
+ll ans = 0LL;
+bool notOk(ll x) {
+  string temp = str1;
+  for (ll i = 0LL; i < x; i++) {
+    temp[arr[i] - 1LL] = '*';
   }
-  cerr << " ]";
-}
 
-ll m, n, zoo;
-vector<Test> arr;
-vector<ll> hepte;
-
-bool notok(ll x) {
-  ll ballons = 0LL;
-  vector<ll> ans;
-
-  for (auto i : arr) {
-    ll howMuch = 0LL, temp = 0LL;
-    for (ll j = 0LL; j <= x;) {
-      if (j + i.t > x) break;
-      ballons++;
-      temp++;
-      howMuch++;
-      j += i.t;
-      if (howMuch % i.z == 0LL) {
-        j += i.y;
-        howMuch = 0LL;
-      }
+  string ans = str2;
+  ll j = 0LL, k = 0LL;
+  while (k < temp.length()) {
+    if (temp[k] == ans[j]) {
+      if (j < (ll)temp.length()) j++;
     }
-    ans.push_back(temp);
+    k++;
   }
 
-  if (ballons == m) {
-    hepte.assign(ans.begin(), ans.end());
-    zoo = x;
-  }
+  // if(j >= ((ll)ans.length() - 1LL)) {
+  //   ans = x;
+  // }
 
-  return ballons < m;
+  return j < ((ll)ans.length() - 1LL);
 }
 
 signed main() {
-  cin >> m >> n;
-  arr.resize(n);
-  hepte.resize(n);
-  for (int i = 0; i < n; i++) {
-    cin >> arr[i].t >> arr[i].z >> arr[i].y;
-  }
+  cin >> str1 >> str2;
+  ll len = (ll)str1.length();
+  arr.resize(len);
 
-  ll l = 0LL, r = 1e7;
-  while (l + 1 < r) {
-    ll m = l + (r - l) / 2;
+  for (auto &i : arr) cin >> i;
+  // debug(arr)
 
-    if (notok(m))
-      l = m;
-    else
+  ll l = 0LL, r = len;
+
+  while (l + 1LL < r) {
+    ll m = l + (r - l) / 2LL;
+    debug(m)
+    debug(l)
+    debug(r)
+    if (notOk(m))
       r = m;
+    else
+      l = m;
   }
-
-  cout << zoo << '\n';
-  for (auto i : hepte) cout << i << " ";
+  debug(l)
+  debug(r)
+  cout << l;
+  // cout << "what happened bro\n";
   return 0;
 }
 

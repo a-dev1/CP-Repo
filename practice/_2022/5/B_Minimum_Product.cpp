@@ -81,70 +81,33 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-struct Test {
-  ll t, z, y;
-};
-
-void printt(vector<Test> arr) {
-  cerr << "[";
-  for (auto i : arr) {
-    cerr << " { " << i.t << ", " << i.z << ", " << i.y << " }";
-  }
-  cerr << " ]";
-}
-
-ll m, n, zoo;
-vector<Test> arr;
-vector<ll> hepte;
-
-bool notok(ll x) {
-  ll ballons = 0LL;
-  vector<ll> ans;
-
-  for (auto i : arr) {
-    ll howMuch = 0LL, temp = 0LL;
-    for (ll j = 0LL; j <= x;) {
-      if (j + i.t > x) break;
-      ballons++;
-      temp++;
-      howMuch++;
-      j += i.t;
-      if (howMuch % i.z == 0LL) {
-        j += i.y;
-        howMuch = 0LL;
-      }
-    }
-    ans.push_back(temp);
-  }
-
-  if (ballons == m) {
-    hepte.assign(ans.begin(), ans.end());
-    zoo = x;
-  }
-
-  return ballons < m;
-}
 
 signed main() {
-  cin >> m >> n;
-  arr.resize(n);
-  hepte.resize(n);
-  for (int i = 0; i < n; i++) {
-    cin >> arr[i].t >> arr[i].z >> arr[i].y;
+  int t;
+  cin >> t;
+  while (t--) {
+    int a, b, x, y, n;
+    cin >> a >> b >> x >> y >> n;
+
+    int diff = a - x;
+    int diffb = b - y;
+
+    if (a < b) {
+      debug(a) debug(b) if (diff <= n) {
+        a -= diff;
+        n -= diff;
+      }
+      else {
+        cout << (a - n) * b << '\n';
+        continue;
+      }
+      if (diffb <= n) {
+        b -= diffb;
+      } else {
+        cout << (a) * (b - n) << '\n';
+      }
+    }
   }
-
-  ll l = 0LL, r = 1e7;
-  while (l + 1 < r) {
-    ll m = l + (r - l) / 2;
-
-    if (notok(m))
-      l = m;
-    else
-      r = m;
-  }
-
-  cout << zoo << '\n';
-  for (auto i : hepte) cout << i << " ";
   return 0;
 }
 
