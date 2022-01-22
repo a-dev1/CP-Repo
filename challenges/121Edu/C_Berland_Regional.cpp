@@ -17,6 +17,16 @@ const int MOD = 1e9 + 7;
 #define PI 3.1415926535897932384626
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
+#define pb push_back
+#define present(c, x) (c.find(x) != c.end())
+#define desc greater<int>()
+#define fi first
+#define se second
+#define bg begin()
+#define ed end()
+#define set_bits __builtin_popcountint
+
+#define sz size()
 #define debug(x)     \
   cerr << #x << " "; \
   _print(x);         \
@@ -85,36 +95,46 @@ void _print(map<T, V> v) {
   cerr << "]";
 }
 
-///////////////////////////////////////////////////////////////
+#define forn(i, n) for (int i = 0; i < int(n); i++)
 
-#define bg begin()
-#define ed end()
+///////////////////////////////////////////////////////////////
 
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n;
+    cin >> n;
+    vector<ll> uni(n);
+    vector<ll> str(n);
+    map<ll, multiset<ll>> m;
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+    for (auto &i : uni) cin >> i;
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+    for (auto &i : str) cin >> i;
+
+    for (ll i = 0; i < n; i++) m[uni[i]].insert(str[i]);
+
+    map<ll, vector<ll>> m2;
+
+    for (auto j : m) {
+      ll pre = 0LL;
+      for (auto i : j.se) {
+        pre += i;
+        m2[j.fi].pb(pre);
+      }
+    }
+
+    vector<ll> ans(n + 1);
+
+    for (auto i : m2) 
+      for (ll j = 1; j <= ll(i.se.sz); j++) 
+          ans[j] += i.se[i.se.sz - 1] - (i.se.sz % j != 0 ? i.se[(i.se.sz % j) - 1] : 0);        
+      
+    for (ll i = 1; i <= n; i++) cout << ans[i] << " ";
+    cout << '\n';
+  }
   return 0;
 }
 

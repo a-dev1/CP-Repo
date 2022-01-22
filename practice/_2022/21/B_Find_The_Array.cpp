@@ -21,6 +21,13 @@ const int MOD = 1e9 + 7;
   cerr << #x << " "; \
   _print(x);         \
   cerr << endl;
+#define present(c, x) (c.find(x) != c.end())
+#define desc greater<int>()
+#define fi first
+#define se second
+#define bg begin()
+#define sz size()
+#define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -86,36 +93,72 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+// Function to calculate the smallest multiple
+ll roundUp(ll numToRound, ll multiple) {
+  if (multiple == 0LL) return numToRound;
 
-#define bg begin()
-#define ed end()
+  ll remainder = numToRound % multiple;
+  if (remainder == 0LL) return numToRound;
+
+  ll roundUp = numToRound + multiple - remainder;
+
+  ll roundDown = ((numToRound + multiple / 2) / multiple) * multiple;
+
+  if (roundDown <= 0) {
+    return roundUp;
+  }
+
+  return (abs(numToRound - roundUp) < abs(numToRound - roundDown) ? roundUp
+                                                                  : roundDown);
+}
 
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    for (auto &i : arr) cin >> i;
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+    vector<ll> ans;
+    ll i = 0;
+    while (arr[i] == 1LL && i < n) {
+      ans.push_back(arr[i]);
+      i++;
+    }
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+    if (i < n) {
+      ll toWork = arr[i];
+
+      ans.push_back(toWork);
+      i++;
+
+      for (; (i < n && (ans.sz < n)); i++) {
+        ll num = roundUp(arr[i], ans[ans.sz - 1]);
+        // debug(num);
+
+        if (arr[i] < ans[ans.sz - 1] || num > 1000000000) {
+          ll prev = ans[ans.sz - 1];
+
+          if (prev - arr[i] < arr[i] - 1)
+            ans.push_back(prev);
+          else
+            ans.push_back(1);
+          continue;
+        }
+
+        ans.push_back(num);
+      }
+    }
+
+    for (auto i : ans) cout << i << " ";
+
+    cout << '\n';
+  }
   return 0;
 }
 
+//
 ///////////////////////////////////////////////////////////////

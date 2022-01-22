@@ -21,6 +21,13 @@ const int MOD = 1e9 + 7;
   cerr << #x << " "; \
   _print(x);         \
   cerr << endl;
+#define present(c, x) (c.find(x) != c.end())
+#define desc greater<int>()
+#define fi first
+#define se second
+#define bg begin()
+#define ed end()
+#define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -86,35 +93,53 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+void doStuff(vector<ll> &arr, ll required, ll n) {
+  if (required == 0) return;
 
-#define bg begin()
-#define ed end()
+  debug(required);
+  debug(n);
+  if (required > n) {
+    reverse(arr.begin(), arr.begin() + n);
+    required++;
+    required -= n;
+  } else {
+    if (required == 1) required++;
+
+    reverse(arr.begin() + n - required, arr.begin() + n);
+    required = 0;
+  }
+  debug(arr);
+
+  doStuff(arr, required, n - 1);
+}
 
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  int t;
+  cin >> t;
+  int temp = t;
+  while (t--) {
+    ll n, sum;
+    cin >> n >> sum;
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+    if (sum > ((n * (n + 1)) / 2) - 1 || sum < n - 1) {
+      cout << "Case #" << temp - t << ": "
+           << "IMPOSSIBLE\n";
+      continue;
+    }
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+    ll start = n - 1;
+    vector<ll> arr;
+    for (ll i = 1; i <= n; i++) arr.push_back(i);
+
+    debug(arr);
+    if (sum - (n - 1) != 0) doStuff(arr, sum - (n - 2), n);
+    debug(arr);
+
+    cout << "Case #" << temp - t << ": ";
+    for (auto i : arr) cout << i << " ";
+    cout << '\n';
+  }
   return 0;
 }
 

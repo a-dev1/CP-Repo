@@ -21,6 +21,13 @@ const int MOD = 1e9 + 7;
   cerr << #x << " "; \
   _print(x);         \
   cerr << endl;
+#define present(c, x) (c.find(x) != c.end())
+#define desc greater<int>()
+#define fi first
+#define se second
+#define be begin()
+#define ed end()
+#define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -85,8 +92,6 @@ void _print(map<T, V> v) {
   cerr << "]";
 }
 
-///////////////////////////////////////////////////////////////
-
 signed main() {
   code_brains;
   int t;
@@ -106,28 +111,27 @@ signed main() {
 
     for (int i = 0; i < n; i++) {
       if (i == 0) {
-        ans += (h[i] * (h[i] + 1)) / 2;
+        ans += (h[i] * (h[i] + 1)) / 2LL;
         prePower = h[i];
         continue;
       }
 
-      if (k[i] - k[i - 1] == 1 && h[i] > 1) {
-        ans += prePower + 1;
-        prePower = (prePower + 1);
+      if (k[i] - k[i - 1LL] == 1 && h[i] > 1) {
+        ans += prePower + 1LL;
+        prePower = (prePower + 1LL);
         continue;
-      } else if (k[i] - k[i - 1] == 1 && h[i] <= 1) {
-        ans += 1;
+      } else if (k[i] - k[i - 1] == 1LL && h[i] <= 1LL) {
+        ans += 1LL;
         prePower = 1;
         continue;
       }
 
       ll diff = k[i] - k[i - 1];
 
-      if (h[i] > (diff * (diff + 1)) / 2) {
-        ans += (((h[i]) * (h[i] + 1)) / 2) - ((h[i - 1] * (h[i - 1] + 1)) / 2);
-        debug(ans);
+      if (h[i] > diff) {
+        ans += (((k[i]) * (k[i] + 1)) / 2LL) - ((k[i - 1] * (k[i - 1] + 1LL)) / 2LL);
       } else {
-        ans += (h[i] * (h[i] + 1)) / 2;
+        ans += (h[i] * (h[i] + 1)) / 2LL;
       }
     }
     cout << ans << '\n';

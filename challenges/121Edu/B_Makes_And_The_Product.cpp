@@ -86,35 +86,37 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-
-#define bg begin()
-#define ed end()
+ll fact(ll n, ll bk) {
+  if (n == bk) {
+    return bk;
+  }
+  if ((n == 0LL) || (n == 1LL))
+    return 1LL;
+  else
+    return n * fact(n - 1LL, bk);
+}
 
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
+  sort(all(arr));
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+  ll howMuchTime = 1LL;
+  if (arr[0] == arr[2]) howMuchTime++;
+  if (arr[1] == arr[2]) howMuchTime++;
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+  ll cnt = 0LL;
+  for (ll i = 3; i < n; i++) {
+    if (arr[2] == arr[i]) cnt++;
+  }
+
+  n = cnt + howMuchTime;
+
+  cout << fact(n, (n - howMuchTime + 1)) / (fact(howMuchTime, 1)) << '\n';
+
   return 0;
 }
 

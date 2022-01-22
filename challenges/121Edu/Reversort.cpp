@@ -87,34 +87,28 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
-#define bg begin()
-#define ed end()
-
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  int t;
+  cin >> t;
+  int temp = t;
+  while (t--) {
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    for (auto &i : arr) cin >> i;
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+    ll ans = 0;
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+    for (ll i = 0; i < n - 1; i++) {
+      ll smallest = *min_element(arr.begin() + i, arr.end());
+      auto Idx = find(arr.begin(), arr.end(), smallest);
+      reverse(arr.begin() + i, Idx + 1);
+      ans += distance(arr.begin() + i, Idx) + 1;
+    }
+    cout << "Case "
+         << "#" << temp - t << ": " << ans << '\n';
+  }
   return 0;
 }
 

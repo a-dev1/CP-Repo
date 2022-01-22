@@ -87,34 +87,24 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
-#define bg begin()
-#define ed end()
-
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
-
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
-
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+  int t;
+  cin >> t;
+  while (t--) {
+    int n;
+    cin >> n;
+    if (n % 2 != 0) {
+      cout << "0\n";
+      continue;
+    }
+    int cnt = 0;
+    while (n % 2 == 0) {
+      n /= 2;
+      cnt++;
+    }
+    cout << cnt << "\n";
+  }
   return 0;
 }
 

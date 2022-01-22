@@ -21,6 +21,13 @@ const int MOD = 1e9 + 7;
   cerr << #x << " "; \
   _print(x);         \
   cerr << endl;
+#define present(c, x) (c.find(x) != c.end())
+#define desc greater<int>()
+#define fi first
+#define se second
+#define bg begin()
+#define ed end()
+#define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -87,34 +94,13 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
-#define bg begin()
-#define ed end()
-
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
-
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
-
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+  int a = 29, b = 30;
+  int c1 = a - (a % b);
+  int c2 = c1 + b;
+  int c = a - c1 < c2 - a ? c1 : c2;
+  cout << c << '\n';
   return 0;
 }
 

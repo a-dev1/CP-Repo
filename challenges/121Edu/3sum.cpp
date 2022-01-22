@@ -87,34 +87,45 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
-#define bg begin()
-#define ed end()
-
 signed main() {
   code_brains;
-  // // cout << "Hello world!";
-  // double m = 999999999899.9999;
-  // string str = to_string(m);
-  // // stringstream ss(str);
-  // double num;
-  // // ss >> num;
+  // vector<int> arr = {-8, -6, -5, 0, 2, 3, 6, 6};
+  vector<int> arr = {-8, 2, 2, 6, 6, 6};
+  // 5
+  map<int, int> m;
+  vector<vector<int>> ans;
 
-  // cout << num << '\n';
-  // cout << m << '\n';
-  // cout << str << '\n';
-  multiset<int> m;
-  m.insert(1);
-  m.insert(2);
-  m.insert(3);
-  m.insert(4);
-  m.insert(5);
-  m.insert(5);
-  m.insert(65);
+  for (auto i : arr) m[i]++;
+  debug(m);
 
-  // for(auto i = m.bg; i != m.ed; i++) {
-  //   cout << *i << " ";
-  // }
-  for (auto i : m) cout << i << " ";
+  for (auto i = m.begin(); i != m.end(); i++) {
+    int what = -(i->first);
+
+    debug(what);
+    auto temp = i;
+
+    temp++;
+
+    while (temp != m.end()) {
+      int toFind = (what - temp->first);
+
+      if (m.count(toFind)) {
+        int howMuch = m[toFind] * temp->second;
+        debug(howMuch);
+
+        while (howMuch--) {
+          ans.push_back({i->first, temp->first, toFind});
+          // debug({i->first, temp->first, toFind});
+        }
+        debug(ans);
+        // i->second = 0;
+      }
+      temp++;
+    }
+  }
+
+  debug(ans);
+
   return 0;
 }
 
