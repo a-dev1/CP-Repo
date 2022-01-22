@@ -26,7 +26,7 @@ const int MOD = 1e9 + 7;
 #define fi first
 #define se second
 #define bg begin()
-#define sz size()
+#define ed end()
 #define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
@@ -93,23 +93,13 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// Function to calculate the smallest multiple
-ll roundUp(ll numToRound, ll multiple) {
-  if (multiple == 0LL) return numToRound;
+ll countOdd(ll L, ll R) {
+  ll N = (R - L) / 2LL;
 
-  ll remainder = numToRound % multiple;
-  if (remainder == 0LL) return numToRound;
+  // if either R or L is odd
+  if (R % 2LL != 0LL || L % 2LL != 0LL) N += 1LL;
 
-  ll roundUp = numToRound + multiple - remainder;
-
-  ll roundDown = ((numToRound + multiple / 2) / multiple) * multiple;
-
-  if (roundDown <= 0) {
-    return roundUp;
-  }
-
-  return (abs(numToRound - roundUp) < abs(numToRound - roundDown) ? roundUp
-                                                                  : roundDown);
+  return N;
 }
 
 signed main() {
@@ -117,37 +107,24 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n;
-    cin >> n;
-    vector<ll> arr(n + 1);
-    ll es = 0, os = 0;
-
-    for (int i = 1; i <= n; i++) {
-      cin >> arr[i];
-      i % 2 == 0 ? es += arr[i] : os += arr[i];
+    ll l, r, k;
+    cin >> l >> r >> k;
+    ll cnt = countOdd(l, r);
+    if (l - r == 0) {
+      if (r > 1)
+        cout << "YES\n";
+      else
+        cout << "NO\n";
+      continue;
     }
 
-    ll start;
-    es >= os ? start = 2 : start = 3;
+    if (cnt > k) {
+      cout << "NO\n";
 
-    for (int i = 1; i <= n; i++) {
-      if (start == 2) {
-        if (i % 2 == 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
-      } else {
-        if (i % 2 != 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
-      }
-    }
-
-    cout << '\n';
+    } else
+      cout << "YES\n";
   }
   return 0;
 }
 
-//
 ///////////////////////////////////////////////////////////////

@@ -26,7 +26,7 @@ const int MOD = 1e9 + 7;
 #define fi first
 #define se second
 #define bg begin()
-#define sz size()
+#define ed end()
 #define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
@@ -93,24 +93,7 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// Function to calculate the smallest multiple
-ll roundUp(ll numToRound, ll multiple) {
-  if (multiple == 0LL) return numToRound;
-
-  ll remainder = numToRound % multiple;
-  if (remainder == 0LL) return numToRound;
-
-  ll roundUp = numToRound + multiple - remainder;
-
-  ll roundDown = ((numToRound + multiple / 2) / multiple) * multiple;
-
-  if (roundDown <= 0) {
-    return roundUp;
-  }
-
-  return (abs(numToRound - roundUp) < abs(numToRound - roundDown) ? roundUp
-                                                                  : roundDown);
-}
+void findMinLenMex() {}
 
 signed main() {
   code_brains;
@@ -119,35 +102,60 @@ signed main() {
   while (t--) {
     ll n;
     cin >> n;
-    vector<ll> arr(n + 1);
-    ll es = 0, os = 0;
 
-    for (int i = 1; i <= n; i++) {
-      cin >> arr[i];
-      i % 2 == 0 ? es += arr[i] : os += arr[i];
+    vector<int> arr(n);
+    vector<int> ans;
+    vector<int> everyNum(n + 2);
+
+    map<int, int> m;
+
+    for (auto &i : arr) {
+      cin >> i;
+      everyNum[i] = 1;
+      m[i]++;
     }
 
-    ll start;
-    es >= os ? start = 2 : start = 3;
+    set<int> s;
+    debug(s.size());
 
-    for (int i = 1; i <= n; i++) {
-      if (start == 2) {
-        if (i % 2 == 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
-      } else {
-        if (i % 2 != 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
+    int maxLen = m.size();
+
+    int range = 0;
+    for (int i = 0; i < n; i++) {
+      debug(s);
+      debug(range);
+      debug(s.size());
+
+      if (s.size() > 0) {
+        debug(*s.rbegin());
+        if (*s.rbegin() > range) {
+          for (int j = 0; j <= *s.rbegin(); j++) {
+            if (!s.count(j)) {
+              if (!everyNum[j]) {
+                ans.push_back(j);
+                s.clear();
+                break;
+              }
+            }
+          }
+        }
       }
+
+      if (s.size() == maxLen) {
+        ans.push_back(*s.rbegin() + 1);
+        maxLen--;
+        s.clear();
+      }
+
+      s.insert(arr[i]);
+      debug("end");
+      debug(s);
+      range = s.size() - 1;
     }
 
-    cout << '\n';
+    debug(ans);
   }
   return 0;
 }
 
-//
 ///////////////////////////////////////////////////////////////

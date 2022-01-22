@@ -26,7 +26,7 @@ const int MOD = 1e9 + 7;
 #define fi first
 #define se second
 #define bg begin()
-#define sz size()
+#define ed end()
 #define set_bits __builtin_popcountint
 
 void _print(ll t) { cerr << t; }
@@ -93,61 +93,48 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// Function to calculate the smallest multiple
-ll roundUp(ll numToRound, ll multiple) {
-  if (multiple == 0LL) return numToRound;
-
-  ll remainder = numToRound % multiple;
-  if (remainder == 0LL) return numToRound;
-
-  ll roundUp = numToRound + multiple - remainder;
-
-  ll roundDown = ((numToRound + multiple / 2) / multiple) * multiple;
-
-  if (roundDown <= 0) {
-    return roundUp;
-  }
-
-  return (abs(numToRound - roundUp) < abs(numToRound - roundDown) ? roundUp
-                                                                  : roundDown);
-}
 
 signed main() {
   code_brains;
   int t;
   cin >> t;
   while (t--) {
-    ll n;
-    cin >> n;
-    vector<ll> arr(n + 1);
-    ll es = 0, os = 0;
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> required(n);
+    vector<ll> benefit(n);
+    vector<pair<ll, ll>> arr(n);
 
-    for (int i = 1; i <= n; i++) {
-      cin >> arr[i];
-      i % 2 == 0 ? es += arr[i] : os += arr[i];
+    for (int i = 0; i < n; i++) {
+      ll temp;
+      cin >> temp;
+      arr[i].first = temp;
     }
 
-    ll start;
-    es >= os ? start = 2 : start = 3;
+    for (int i = 0; i < n; i++) {
+      ll temp;
+      cin >> temp;
 
-    for (int i = 1; i <= n; i++) {
-      if (start == 2) {
-        if (i % 2 == 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
+      arr[i].second = temp;
+    }
+
+    // debug(arr);
+
+    sort(all(arr));
+
+    ll have = k;
+
+    for (auto i : arr) {
+      if (i.first > have) {
+        break;
       } else {
-        if (i % 2 != 0)
-          cout << arr[i] << " ";
-        else
-          cout << 1 << " ";
+        have += i.second;
       }
     }
 
-    cout << '\n';
+    cout << have << '\n';
   }
   return 0;
 }
 
-//
 ///////////////////////////////////////////////////////////////
