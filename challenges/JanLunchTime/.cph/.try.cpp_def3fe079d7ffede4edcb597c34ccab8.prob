@@ -1,0 +1,1 @@
+{"name":"Local: try","url":"f:\\CP\\Git_CP\\challenges\\JanLunchTime\\try.cpp","tests":[{"id":1643467434048,"input":"4\n1 1\n3 2\n4 1\n5 3","output":"1\n1 3 2 \n-1\n5 3 1 4 2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\challenges\\JanLunchTime\\try.cpp","group":"local","local":true}
