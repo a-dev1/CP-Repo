@@ -102,15 +102,14 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  int n, m, q;
+  ll n, m, q;
   cin >> n >> m >> q;
 
-  vector<vi> arr(n + 1);
-  vi adj(n + 1, 0);
-  vi isFrozen(n + 1, 0);
+  vl adj(n + 1, 0);
+  map<ll, vl> arr;
 
-  for (int i = 0; i < m; i++) {
-    int u, v;
+  for (ll i = 0; i < m; i++) {
+    ll u, v;
     cin >> u >> v;
 
     arr[u].push_back(v);
@@ -118,48 +117,35 @@ signed main() {
   }
 
   // debug(arr);
-  bool full = false;
 
-  for (int i = 0; i < q; i++) {
-    int type, value;
+  queue<ll> qu;
+
+  for (ll i = 0; i < q; i++) {
+    ll type, value;
     cin >> type >> value;
 
     if (type == 1) {
-      adj[value] = 1;
+      if (!adj[value]) {
+        qu.push(value);
+        adj[value] = 1;
+      }
     } else if (type == 2) {
-      vi tt(n + 1, 0);
-      int cnt = 0;
+      // debug(qu.size());
+      for (ll t = 0; t < value && !qu.empty(); t++) {
+        vl temp;
+        while (!qu.empty()) {
+          ll val = qu.front();
+          // debug(val);
+          qu.pop();
 
-      int happens = 10;
-      while (value-- && !full) {
-        if (happens)
-          happens = 0;
-        else
-          break;
-
-        bool shouldCopy = false;
-
-        for (int i = 1; i <= n && !full; i++) {
-          if (adj[i]) {
-            cnt++;
-            if (!isFrozen[i]) {
-              isFrozen[i] = 1;
-              for (auto t : arr[i]) {
-                shouldCopy = true;
-                happens++;
-                tt[t] = 1;
-              }
+          for (auto k : arr[val]) {
+            if (!adj[k]) {
+              adj[k] = 1;
+              temp.push_back(k);
             }
           }
         }
-
-        if (cnt == n) full = true;
-
-        if (shouldCopy) {
-          for (int i = 1; i <= n; i++) {
-            if (tt[i]) adj[i] = 1;
-          }
-        }
+        for (auto l : temp) qu.push(l);
       }
     } else {
       if (adj[value])
@@ -167,7 +153,6 @@ signed main() {
       else
         cout << "NO\n";
     }
-    // debug(isFrozen);
     // debug(adj);
   }
   return 0;
