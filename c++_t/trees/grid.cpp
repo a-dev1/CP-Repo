@@ -102,15 +102,47 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  list<int> arr = {1, 2, 3, 2, 2, 4, 5};
+  int t;
+  cin >> t;
+  while (t--) {
+    ll x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
 
-  // arr.sort();
-  // arr.unique();
-  // for (auto &i : arr) {
-  //   cin >> i;
-  // }
+    ll ans = 0;
 
-  for (auto i : arr) cout << i << " ";
+    ll n = (x1 + y1) - 2, n2 = (x2 + y2) - 2;
+
+    ll vertical = x2 - x1, start = ((n * (n + 1)) / 2) + x1,
+       last = ((n2 * (n2 + 1)) / 2) + x2;
+
+    ans += start;
+    ans += last;
+
+    ll x3 = x1, y3 = y1;
+
+    while (vertical > 1) {
+      x3++;
+      ll n = (x3 + y3) - 2;
+      ans += ((n * (n + 1)) / 2) + x3;
+      vertical--;
+    }
+
+    ll horizontal = y2 - y1;
+    if (horizontal > 0 && x2 - x1 >= 1) {
+      x3++;
+      ll n = (x3 + y3) - 2;
+      ans += ((n * (n + 1)) / 2) + x3;
+    }
+
+    while (horizontal > 1) {
+      y3++;
+      ll n = (x3 + y3) - 2;
+      ans += ((n * (n + 1)) / 2) + x3;
+      horizontal--;
+    }
+
+    cout << ans << "\n";
+  }
   return 0;
 }
 
