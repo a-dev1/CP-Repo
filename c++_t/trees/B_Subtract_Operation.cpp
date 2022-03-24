@@ -99,53 +99,28 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
- * };
- */
-class Solution {
- public:
-  vector<vector<int>> levelOrder(TreeNode* root) {
-    vector<vector<int>> ans;
-    queue<TreeNode*> q;
 
-    if (root == nullptr) return ans;
-    q.push(root);
-
-    int cnt = 0;
-    while (!q.empty()) {
-      vector<TreeNode*> tt;
-
-      while (!q.empty()) {
-        tt.push_back(q.front());
-        q.pop();  // TreeNode*
-      }
-
-      for (auto& i : tt) {
-        // ans.push_back({});
-        ans.resize(cnt + 1);
-        if (i != nullptr) ans[cnt].push_back(i->val);
-        if (i->left != nullptr) q.push(i->left);
-        if (i->right != nullptr) q.push(i->right);
-      }
-      cnt++;
-    }
-
-    return ans;
-  }
-};
-// Iterative In-Order
-//  https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> arr(n);
+    for (auto &i : arr) cin >> i;
+
+    sort(all(arr));
+    ll temp = 0;
+    for (int i = 0; i < n - 1; i++) {
+      temp += arr[i];
+    }
+
+    if (arr[n - 1] - temp == k)
+      cout << "YES\n";
+    else
+      cout << "NO\n";
+  }
 
   return 0;
 }

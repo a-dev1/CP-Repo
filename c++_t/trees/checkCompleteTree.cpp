@@ -86,7 +86,7 @@ void _print(multiset<T> v) {
     _print(i);
     cerr << " ";
   }
-  cerr << "]";
+  +cerr << "]";
 }
 template <class T, class V>
 void _print(map<T, V> v) {
@@ -106,9 +106,10 @@ signed main() {
 
   arr.sort();
   arr.unique();
-  // for (auto &i : arr) {
-  //   cin >> i;
-  // }
+  
+  for (auto &i : arr) {
+    cin >> i;
+  }
 
   for (auto i : arr) cout << i << " ";
   return 0;
