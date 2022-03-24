@@ -115,8 +115,16 @@ signed main() {
     ll vertical = x2 - x1, start = ((n * (n + 1)) / 2) + x1,
        last = ((n2 * (n2 + 1)) / 2) + x2;
 
-    ans += start;
-    ans += last;
+    if (start == last) {
+      ans += start;
+    } else {
+      ans += last;
+      ans += start;
+    }
+
+    // debug(start);
+    // debug(last);
+    // debug(ans);
 
     ll x3 = x1, y3 = y1;
 
@@ -132,7 +140,8 @@ signed main() {
       x3++;
       ll n = (x3 + y3) - 2;
       ans += ((n * (n + 1)) / 2) + x3;
-    }
+    }  
+     
 
     while (horizontal > 1) {
       y3++;
