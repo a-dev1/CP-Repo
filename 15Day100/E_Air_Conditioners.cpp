@@ -125,27 +125,51 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    int n;
-    cin >> n;
-    string arr;
-    cin >> arr;
+    int n, k;
+    cin >> n >> k;
 
-    ll d = 0, k = 0;
+    vl idx(k), val(k);
+    for (int i = 0; i < k; i++) {
+      cin >> idx[i];
+    }
+    for (int i = 0; i < k; i++) {
+      cin >> val[i];
+    }
 
-    map<pair<ll, ll>, ll> m;
+    vl arr1(n), arr2(n);
+    for (int i = 0; i < k; i++) {
+      arr1[idx[i] - 1] = val[i];
+      arr2[idx[i] - 1] = val[i];
+    }
+
+    ll b = 1e12;
 
     for (int i = 0; i < n; i++) {
-      if (arr[i] == 'D')
-        d++;
-      else
-        k++;
+      if (!arr1[i]) {
+        arr1[i] = b;
+      }
+      b = min(b, arr1[i]);
+      arr1[i] = b;
+      b++;
+    }
 
-      ll ans = __gcd(d, k);
+    b = 1e12;
 
-      cout << m[{d / ans, k / ans}] << " ";
+    for (int i = n - 1; i >= 0; i--) {
+      if (!arr2[i]) {
+        arr2[i] = b;
+      }
+      b = min(b, arr2[i]);
+      arr2[i] = b;
+      b++;
+    }
+
+    for (int i = 0; i < n; i++) {
+      cout << min(arr1[i], arr2[i]) << " ";
     }
     cout << '\n';
   }
   return 0;
 }
+
 ///////////////////////////////////////////////////////////////
