@@ -118,15 +118,6 @@ void _print(map<T, V> v) {
   cerr << "]";
 }
 
-ll findMin(vl arr, ll ele) {
-  ll ans = 1e18;
-  for (int i = 0; i < (ll)arr.size(); i++) {
-    if (abs(arr[i] - ele) <= ans) {
-      ans = abs(arr[i] - ele);
-    }
-  }
-  return ans;
-}
 ///////////////////////////////////////////////////////////////
 
 signed main() {
@@ -134,36 +125,22 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    int n;
-    cin >> n;
-    vl arr1(n), arr2(n);
-    for (auto &i : arr1) cin >> i;
-    for (auto &i : arr2) cin >> i;
+    ll n, B, x, y;
+    cin >> n >> B >> x >> y;
 
-    ll ul = arr1[0], ur = arr1[n - 1], dl = arr2[0], dr = arr2[n - 1];
+    vector<int> arr(n + 1, 0);
 
-    // 2 way connection possible
-    ll poss1 = abs(ul - dl) + abs(ur - dr), poss2 = abs(ul - dr) + abs(ur - dl);
+    for (int i = 1; i <= n; i++) {
+      if (arr[i - 1] + x <= B) {
+        arr[i] = arr[i - 1] + x;
+      } else {
+        arr[i] = arr[i - 1] - y;
+      }
+    }
 
-    // 4 way connection
-    ll poss3 = findMin(arr2, ul) + findMin(arr2, ur) + findMin(arr1, dl) +
-               findMin(arr1, dr);
-
-    // 3 way connection
-    ll d1 = abs(ul - dl) + findMin(arr2, ur) + findMin(arr1, dr);
-    ll d2 = abs(ur - dr) + findMin(arr2, ul) + findMin(arr1, dl);
-    ll d3 = abs(ul - dr) + findMin(arr2, ur) + findMin(arr1, dl);
-    ll d4 = abs(ur - dl) + findMin(arr2, ul) + findMin(arr1, dr);
-
-    priority_queue<ll, vector<ll>, greater<ll>> pq;
-    pq.push(d1);
-    pq.push(d2);
-    pq.push(d3);
-    pq.push(d4);
-    ll s = pq.top();
-
-    cout << min(s, min(poss3, min(poss1, poss2))) << '\n';
-    // cout << diff1 + diff2 + diff3 + diff4 << '\n';
+    int ans = 0;
+    for(int i = 0; i <= n; i++) ans += arr[i];
+    cout << ans << '\n';
   }
   return 0;
 }

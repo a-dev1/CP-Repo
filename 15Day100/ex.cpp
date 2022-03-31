@@ -118,15 +118,6 @@ void _print(map<T, V> v) {
   cerr << "]";
 }
 
-ll findMin(vl arr, ll ele) {
-  ll ans = 1e18;
-  for (int i = 0; i < (ll)arr.size(); i++) {
-    if (abs(arr[i] - ele) <= ans) {
-      ans = abs(arr[i] - ele);
-    }
-  }
-  return ans;
-}
 ///////////////////////////////////////////////////////////////
 
 signed main() {
@@ -142,27 +133,56 @@ signed main() {
 
     ll ul = arr1[0], ur = arr1[n - 1], dl = arr2[0], dr = arr2[n - 1];
 
-    // 2 way connection possible
+    ll diff1 = 1e16, diff2 = 1e16, diff3 = 1e16, diff4 = 1e16, ans1 = 0,
+       ans2 = 0, ans3 = 0, ans4 = 0;
+
+    for (int i = 0; i < n; i++) {
+      if (abs(arr2[i] - ul) < diff1) {
+        diff1 = abs(arr2[i] - ul);
+        ans1 = arr2[i];
+      }
+    }
+
+    for (int i = 0; i < n; i++) {
+      if (abs(arr2[i] - ur) < diff2) {
+        diff2 = abs(arr2[i] - ur);
+        ans2 = arr2[i];
+      }
+    }
+
+    for (int i = 0; i < n; i++) {
+      if (abs(arr1[i] - dl) < diff3) {
+        diff3 = abs(arr1[i] - dl);
+        ans3 = arr1[i];
+      }
+    }
+
+    for (int i = 0; i < n; i++) {
+      if (abs(arr1[i] - dr) < diff4) {
+        diff4 = abs(arr1[i] - dr);
+        ans4 = arr1[i];
+      }
+    }
+
+    // if(diff1 == diff3)
+    if (diff3 && diff4 && diff1 == diff3) diff3 = 0;
+    if (diff3 && diff4 && diff1 == diff4) diff4 = 0;
+
+    if (diff3 && diff4 && diff2 == diff3) diff3 = 0;
+    if (diff3 && diff4 && diff2 == diff4) diff4 = 0;
+
+    if (diff3 && diff4) {
+      if (diff1 && diff2 && diff3 == diff1) diff1 = 0;
+      if (diff1 && diff2 && diff3 == diff2) diff2 = 0;
+
+      if (diff1 && diff2 && diff4 == diff1) diff1 = 0;
+      if (diff1 && diff2 && diff4 == diff2) diff2 = 0;
+    }
+
     ll poss1 = abs(ul - dl) + abs(ur - dr), poss2 = abs(ul - dr) + abs(ur - dl);
+    ll sum = diff1 + diff2 + diff3 + diff4;
 
-    // 4 way connection
-    ll poss3 = findMin(arr2, ul) + findMin(arr2, ur) + findMin(arr1, dl) +
-               findMin(arr1, dr);
-
-    // 3 way connection
-    ll d1 = abs(ul - dl) + findMin(arr2, ur) + findMin(arr1, dr);
-    ll d2 = abs(ur - dr) + findMin(arr2, ul) + findMin(arr1, dl);
-    ll d3 = abs(ul - dr) + findMin(arr2, ur) + findMin(arr1, dl);
-    ll d4 = abs(ur - dl) + findMin(arr2, ul) + findMin(arr1, dr);
-
-    priority_queue<ll, vector<ll>, greater<ll>> pq;
-    pq.push(d1);
-    pq.push(d2);
-    pq.push(d3);
-    pq.push(d4);
-    ll s = pq.top();
-
-    cout << min(s, min(poss3, min(poss1, poss2))) << '\n';
+    cout << min(sum, min(poss1, poss2)) << '\n';
     // cout << diff1 + diff2 + diff3 + diff4 << '\n';
   }
   return 0;
