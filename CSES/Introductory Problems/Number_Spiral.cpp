@@ -135,6 +135,7 @@ signed main() {
 
     ll big = max(x, y), small = min(x, y);
     ll base = (big * big) - (big - 1);
+
     // debug(base);
     if (big == x) {
       if (big % 2 != 0)
