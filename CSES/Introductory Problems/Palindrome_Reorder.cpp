@@ -122,31 +122,59 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  int t;
-  cin >> t;
-  while (t--) {
-    ll a, b;
-    cin >> a >> b;
+  string str;
+  cin >> str;
 
-    ll small = min(a, b), big = max(a, b);
-
-    if (2LL * small < big) {
-      cout << "NO\n";
-      continue;
-    }
-    ll temp = max(big % 3, small % 3);
-    small = min(big % 3, small % 3);
-    big = temp;
-    if ((big == 2 && small == 1) || (big == 0 && small == 0)) {
-      cout << "YES\n";
-      continue;
-    }
-
-    cout << "NO\n";
+  map<char, int> m;
+  for (char c : str) {
+    m[c]++;
   }
+
+  // debug(m);
+  int o = 0, wfreq = 0;
+  char which = ' ';
+
+  for (auto i : m) {
+    if (i.second % 2 != 0) {
+      o++;
+      which = (char)i.first;
+      wfreq = i.second;
+    }
+  }
+
+  if (o > 1) {
+    cout << "NO SOLUTION\n";
+    return 0;
+  }
+
+  string ans = "";
+  if (o == 0) {
+    for (auto i : m) {
+      for (int j = 0; j < (i.second / 2); j++) {
+        ans.push_back(i.first);
+      }
+    }
+    cout << ans;
+    reverse(all(ans));
+    cout << ans << '\n';
+    return 0;
+  } else {
+    for (auto i : m) {
+      if (i.second % 2 == 0)
+        for (int j = 0; j < i.second / 2; j++) {
+          ans.push_back(i.first);
+        }
+    }
+
+    cout << ans;
+    for (int i = 0; i < wfreq; i++) {
+      cout << which;
+    }
+    reverse(all(ans));
+    cout << ans;
+  }
+
   return 0;
 }
-
-// recursion
 
 ///////////////////////////////////////////////////////////////

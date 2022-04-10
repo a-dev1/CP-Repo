@@ -119,52 +119,47 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-ll range;
-bool inRange(pl x) {
-  // debug(range);
-  debug(x);
-  return (x.first > range || x.second > range || x.first < 1 || x.second < 1)
-             ? false
-             : true;
-}
+// ll range;
+// bool inRange(pl x) {
+//   // debug(range);
+//   debug(x);
+//   return (x.first > range || x.second > range || x.first < 1 || x.second < 1)
+//              ? false
+//              : true;
+// }
 
-int checkAll(int i) {
-  pl ul = {i - 2, i - 1}, ur = {i - 2, i + 1}, ru = {i - 1, i + 2},
-     rd = {i + 1, i + 2}, dl = {i + 2, i - 1}, dr = {i + 2, i + 1},
-     lu = {i - 1, i - 2}, ld = {i + 1, i - 2};
+// int checkAll(int i) {
+//   pl ul = {i - 2, i - 1}, ur = {i - 2, i + 1}, ru = {i - 1, i + 2},
+//      rd = {i + 1, i + 2}, dl = {i + 2, i - 1}, dr = {i + 2, i + 1},
+//      lu = {i - 1, i - 2}, ld = {i + 1, i - 2};
 
-  ll toReduce = 1;
-  if (inRange(ul)) toReduce++;
-  if (inRange(ur)) toReduce++;
-  if (inRange(dl)) toReduce++;
-  if (inRange(dr)) toReduce++;
-  if (inRange(rd)) toReduce++;
-  if (inRange(ru)) toReduce++;
-  if (inRange(ld)) toReduce++;
-  if (inRange(lu)) toReduce++;
+//   ll toReduce = 1;
+//   if (inRange(ul)) toReduce++;
+//   if (inRange(ur)) toReduce++;
+//   if (inRange(dl)) toReduce++;
+//   if (inRange(dr)) toReduce++;
+//   if (inRange(rd)) toReduce++;
+//   if (inRange(ru)) toReduce++;
+//   if (inRange(ld)) toReduce++;
+//   if (inRange(lu)) toReduce++;
 
-  debug(toReduce);
-  debug(range);
-  return (range * range) - toReduce;
-}
+//   debug(toReduce);
+//   debug(range);
+//   return (range * range) - toReduce;
+// }
 
 signed main() {
   code_brains;
-  int n;
-  cin >> n;
+  ll t;
+  cin >> t;
 
-  for (int i = 1; i <= n; i++) {
-    range = i;
-    ll ans = 0;
-
-    for (int j = 1; j <= i / 2; j++) {
-      ans += (checkAll(j) * 2);
-    }
-
-    if (i % 2 != 0) {
-      ans += 2 * checkAll((n / 2) + 1);
-    }
-    cout << ans << '\n';
+  for (ll n = 1; n <= t; n++) {
+    ll total = n * n;
+    ll possible = total * (total - 1);
+    //(total!)/r!(total-r)!
+    // effectively (total-r) will cancel out most of the total! value excel last
+    // two that's what computing debug(total);
+    cout << (possible / 2) - (((n - 1LL) * (n - 2LL)) * 4LL) << "\n";
   }
   return 0;
 }
