@@ -119,49 +119,58 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+// bool coin(int b, int s) {
+//   if (b == 0 && s == 0) {
+//     return true;
+//   } else if ((b == 0 && s != 0) || (b != 0 && s == 0)) {
+//     return false;
+//   }
+
+//   int temp = b / 2;
+//   b -= 2 * temp;
+//   s -= temp;
+//   return coin(max(s, b), min(s, b));
+// }
 
 signed main() {
   code_brains;
-  ll n;
-  cin >> n;
+  int t;
+  cin >> t;
+  while (t--) {
+    int a, b;
+    cin >> a >> b;
 
-  // sum all numbers till n and start subtracting no. from half of sum
-  if (((n * (n + 1)) / 2) % 2 != 0) {
-    cout << "NO\n";
-    return 0;
-  }
+    int small = min(a, b), big = max(a, b);
 
-  vl arr(n + 1, 0);
-  ll temp = ((n) * (n + 1LL)) / 4LL, lst = n;
+    // if (2 * small < big) {
+    //   cout << "NO\n";
+    //   continue;
+    // }
 
-  ll cnt = 0;
-  while (true) {
-    if (temp <= 0) break;
+    // if ((small == big && small % 3 == 0) ||
+    //     (big != small && big % small == 0)) {
+    //   cout << "YES\n";
+    //   continue;
+    // }
 
-    if (temp < lst) {
-      lst--;
-      continue;
-    }
+    // int temp = small - (big / 2);
+    // if (temp < 0) {
+    //   cout << "NO\n";
+    //   continue;
+    // }
+    // if (big % 2 == 0 && temp == 0) {
+    //   cout << "YES\n";
+    //   continue;
+    // }
 
-    if (!arr[lst]) {
-      arr[lst] = 1;
-      temp -= lst;
-      cnt++;
-    }
-    lst--;
-  }
-
-  // debug(arr);
-  cout << "YES\n" << cnt << '\n';
-  for (int i = 1; i <= n; i++) {
-    if (arr[i]) cout << i << " ";
-  }
-  cout << '\n';
-  cout << n - cnt << "\n";
-  for (int i = 1; i <= n; i++) {
-    if (!arr[i]) cout << i << " ";
+    if (coin(big, small))
+      cout << "YES\n";
+    else
+      cout << "NO\n";
   }
   return 0;
 }
+
+// recursion
 
 ///////////////////////////////////////////////////////////////
