@@ -125,24 +125,33 @@ signed main() {
   int n;
   cin >> n;
 
-  int ans = 0;
-  vector<pi> arr(2 * n);
-
+  vector<pi> arr;
   for (int i = 0; i < n; i++) {
     int x, y;
     cin >> x >> y;
-    arr.push_back({x, 1});
-    arr.push_back({y, -1});
+    arr.push_back({x, y});
   }
 
   sort(all(arr));
-  int cnt = 0;
-  for (int i = 0; i < arr.size(); i++) {
-    cnt += arr[i].second;
-    ans = max(cnt, ans);
+  // debug(arr);
+  int ans = 1, cnt = 0;
+  pi prev = arr[0];
+  for (int i = 1; i < n; i++) {
+    // if (i == 1 && arr[i].first >= prev.second) {
+    //   ans += 2;
+    //   continue;
+    // }
+    if (arr[i].first >= prev.second) {
+      ans++;
+      prev = arr[i];
+    } else {
+      if (arr[i].second < prev.second) {
+        prev = arr[i];
+      }
+    }
   }
 
-  cout << ans << '\n';  
+  cout << ans << '\n';
   return 0;
 }
 
