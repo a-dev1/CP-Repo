@@ -127,7 +127,7 @@ signed main() {
   vector<ll> arr(n);
   for (auto &i : arr) cin >> i;
 
-  vl idx(n + 1);
+  vl idx(n + 1, 0);
   for (int i = 0; i < n; i++) {
     idx[arr[i]] = i;
   }
@@ -136,24 +136,12 @@ signed main() {
 
   int ans = 0;
   for (int i = 1; i <= n; i++) {
-    if (i != n && idx[i] > idx[i + 1]) {
+    if (idx[i] < idx[i - 1]) {
       ans++;
-      continue;
     }
+  }
 
-    int extra = 0;
-    while (i != n && idx[i] < idx[i + 1]) {
-      i++;
-      extra = 1;
-    }
-    ans += extra;
-    // debug(ans);
-    // i--;
-  }
-  if (idx[idx.size() - 1] < idx[idx.size() - 2]) {
-    ans++;
-  }
-  cout << ans << '\n';
+  cout << ans + 1 << '\n';
   return 0;
 }
 
