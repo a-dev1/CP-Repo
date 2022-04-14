@@ -122,10 +122,20 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  vector<int> arr = {1, 2, 3, 4};
-  auto itr = arr.end();
-  arr.insert(itr, 2, 33);
-  debug(arr);
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
+
+  sort(all(arr));
+
+  ll target = arr[n / 2], ans = 0;
+
+  for(int i = 0; i < n; i++) {
+    ans += abs(arr[i] - target);
+  }
+
+  cout << ans << '\n';
   return 0;
 }
 

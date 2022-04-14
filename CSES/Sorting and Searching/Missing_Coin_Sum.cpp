@@ -122,10 +122,45 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  vector<int> arr = {1, 2, 3, 4};
-  auto itr = arr.end();
-  arr.insert(itr, 2, 33);
-  debug(arr);
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  map<ll, ll> m;
+
+  for (auto &i : arr) {
+    cin >> i;
+    m[i]++;
+  }
+
+  if (!m.count(1)) {
+    cout << 1 << "\n";
+    return 0;
+  }
+  ll sum = (m[2] * 2LL) + (m[1]);
+
+  // debug(sum);
+
+  // debug(m);
+  for (ll i = sum + 1LL; i <= 1e9; i++) {
+    debug(i);
+    if (!m.count(i)) {
+      cout << i << "\n";
+      return 0;
+    }
+    if (m[1] > 0LL) {
+      if (!m.count(i + 1LL)) {
+        m[i + 1LL]++;
+        m[1]--;
+      }
+    }
+    if (m[2] > 0) {
+      if (!m.count(i + 2LL)) {
+        m[i + 2LL]++;
+        m[2]--;
+      }
+    }
+    debug(m);
+  }
   return 0;
 }
 

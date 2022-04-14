@@ -122,10 +122,25 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  vector<int> arr = {1, 2, 3, 4};
-  auto itr = arr.end();
-  arr.insert(itr, 2, 33);
-  debug(arr);
+  ll n;
+  cin >> n;
+  vl arr(n);
+  for (auto &i : arr) cin >> i;
+
+  ll ans = -1e10, temp = 0, biggest = -1e10;
+
+  for (int i = 0; i < n; i++) {
+    if (arr[i] + temp < 0)
+      temp = 0;
+    else
+      temp += arr[i];
+
+    ans = max(ans, temp);
+    biggest = max(arr[i], biggest);
+  }
+
+  ans = ans ? ans : biggest;
+  cout << ans << '\n';
   return 0;
 }
 

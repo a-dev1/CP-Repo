@@ -122,10 +122,36 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  vector<int> arr = {1, 2, 3, 4};
-  auto itr = arr.end();
-  arr.insert(itr, 2, 33);
-  debug(arr);
+  ll n, k;
+  cin >> n >> k;
+
+  vector<pi> arr(n);
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i].fi;
+    arr[i].se = i + 1;
+  }
+  sort(all(arr));
+
+  // debug(arr);
+
+  for (int i = 0; i < n; i++) {
+    if (arr[i].fi > k) break;
+
+    pi rem = make_pair((k - arr[i].fi), 0);
+
+    auto it = lower_bound(arr.begin() + i + 1, arr.end(), rem);
+
+    if (it == arr.end()) continue;
+    int idx = it - arr.begin();
+
+    if (idx < n && arr[idx].fi == k - arr[i].fi) {
+      cout << arr[i].se << " " << arr[idx].se << '\n';  
+      return 0;
+    }
+  }
+
+  cout << "IMPOSSIBLE\n";
+
   return 0;
 }
 
