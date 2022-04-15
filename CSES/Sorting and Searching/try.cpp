@@ -122,8 +122,14 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  map<int, int> m;
-  cout << m[1] << "\n";
+  map<int, int> m = {{1, 1}, {2, 1}, {3, 1}};
+
+  auto itr = m.lower_bound(4);
+
+  if (itr == m.end()) {
+    cout << "NOT PRESENT\n";
+  } else
+    cout << itr->fi << '\n';
   return 0;
 }
 

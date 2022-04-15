@@ -127,12 +127,28 @@ signed main() {
   vector<ll> arr(n);
   for (auto &i : arr) cin >> i;
 
-  int ans = 0;
-  for (int i = 0; i < n - 1; i++) {
-    if (arr[i] < arr[i + 1]) ans++;
+  map<ll, ll> m;
+  ll ans = 0LL;
+
+  for (ll i : arr) {
+    if (m.size() == 0LL) {
+      ans++;
+      m[i]++;
+      continue;
+    }
+
+    auto it = m.upper_bound(i);
+
+    if (it == m.end()) {
+      ans++;
+      m[i]++;
+    } else {
+      m[it->fi]--;
+      if (m[it->fi] == 0) m.erase(it->fi);
+      m[i]++;
+    }
   }
 
-  if (!ans) cout << 1 << "\n";
   cout << ans << '\n';
   return 0;
 }
