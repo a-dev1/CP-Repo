@@ -122,8 +122,18 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  map<int, int> m;
-  cout << m[1] << "\n";
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
+
+  int ans = 0;
+  for (int i = 0; i < n - 1; i++) {
+    if (arr[i] < arr[i + 1]) ans++;
+  }
+
+  if (!ans) cout << 1 << "\n";
+  cout << ans << '\n';
   return 0;
 }
 

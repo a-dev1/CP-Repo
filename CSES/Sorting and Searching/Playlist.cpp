@@ -122,8 +122,26 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  map<int, int> m;
-  cout << m[1] << "\n";
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
+
+  map<ll, ll> m;
+  int l = 0, r = 0, ans = 0;
+
+  while (r < n && l < n) {
+    if (!m[arr[r]]) {
+      m[arr[r]]++;
+      r++;
+    } else {
+      m.erase(arr[l]);
+      l++;
+    }
+    ans = max(ans, (r - l));
+    // debug(ans);
+  }
+  cout << ans << '\n';
   return 0;
 }
 

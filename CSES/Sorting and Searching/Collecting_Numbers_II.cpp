@@ -122,8 +122,62 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  map<int, int> m;
-  cout << m[1] << "\n";
+  ll n, m;
+  cin >> n >> m;
+  vector<ll> arr(n + 1);
+  for (int i = 1; i <= n; i++) cin >> arr[i];
+
+  vector<ll> idx(n + 1);
+  for (int i = 1; i <= n; i++) {
+    idx[arr[i]] = i;
+  }
+
+  // debug(idx);j
+  int ans = 1;
+  for (int i = 1; i < n; i++) {
+    if (idx[i] > idx[i + 1]) ans++;
+  }
+
+  // debug(ans);
+  for (int i = 0; i < m; i++) {
+    int x, y;
+    cin >> x >> y;
+
+    map<pi, int> m;
+    if (arr[x] - 1 > 0) {
+      pi t = {arr[x] - 1, arr[x]};
+      m[t]++;
+    }
+    if (arr[x] + 1 <= n) {
+      pi t = {arr[x], arr[x] + 1};
+      m[t]++;
+    }
+
+    if (arr[y] - 1 > 0) {
+      pi t = {arr[y] - 1, arr[y]};
+      m[t]++;
+    }
+    if (arr[y] + 1 <= n) {
+      pi t = {arr[y], arr[y] + 1};
+      m[t]++;
+    }
+
+    // map size is not more than 4, so O(1) always
+    for (auto i : m) {
+      if (idx[i.fi.fi] > idx[i.fi.se]) {
+        ans--;
+      }
+    }
+    swap(idx[arr[x]], idx[arr[y]]);
+    swap(arr[x], arr[y]);
+    // debug(arr);
+    for (auto i : m) {
+      if (idx[i.fi.fi] > idx[i.fi.se]) {
+        ans++;
+      }
+    }
+    cout << ans << '\n';
+  }
   return 0;
 }
 
