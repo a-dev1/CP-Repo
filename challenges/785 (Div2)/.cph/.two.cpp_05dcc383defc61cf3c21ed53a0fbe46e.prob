@@ -1,0 +1,1 @@
+{"name":"Local: two","url":"f:\\CP\\Git_CP\\challenges\\785 (Div2)\\two.cpp","tests":[{"id":1651330888584,"input":"5\naba\nabb\nabc\naaaaa\nabcba","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\challenges\\785 (Div2)\\two.cpp","group":"local","local":true}
