@@ -128,25 +128,24 @@ signed main() {
     ll n;
     cin >> n;
     vector<ll> arr(n);
-    ll esum = 0LL, osum = 0LL;
+    ll sum = 0LL;
     for (auto &i : arr) {
       cin >> i;
-      if (i % 2) {
-        esum += i;
-      } else
-        osum += i;
+      sum += i;
     }
 
-    n = n / 2;
-    if ((esum / n) % 2 == 0 && (osum / n) % 2 != 0) {
-      cout << "YES\n";
-    } else if ((esum / n) % 2 != 0 && (osum / n) % 2 == 0) {
-      cout << "YES\n";
-    } else if ((esum / n) % 2 == 0 && (osum / n) % 2 == 0) {
-      cout << "NO\n";
-    } else if ((esum / n) % 2 == 1 && (osum / n) % 2 == 1) {
-      cout << "NO\n";
+    if(n == 2) {
+      if((arr[0] % 2) == !(arr[1]%2)) {
+        cout << "YES\n";
+        continue;
+      }
     }
+
+    if(((sum-(n/2))/2)%2 == 0) {
+      cout << "YES\n";
+    }
+    else 
+      cout << "NO\n";
   }
   return 0;
 }
