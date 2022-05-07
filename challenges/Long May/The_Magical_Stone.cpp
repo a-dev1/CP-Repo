@@ -11,8 +11,7 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double lld;
 
-
-const int MAX_N = 1e5 + 1;
+const int MAX_N = 1e6 + 1;
 const int MOD = 1e9 + 7;
 #define endl "\n"
 #define PI 3.1415926535897932384626
@@ -120,47 +119,56 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+// int nCr(int n, int r) {
+//   return
+// }
+// void calculate_factorial() {
+//   fact[0] = 1;
+//   for (int i = 1; i < MAX_N; i++) {
+//     fact[i] = modM(fact[i - 1], i);
+//   }
+// }
+
+// ll nCr(ll n, ll r) {
+//   if (n < 0 || r < 0 || r > n) return 0;
+
+//   ll bottom = modM(minv(fact[r]), minv(fact[n - r]) % mod);
+//   return modM(fact[n], bottom);
+// }
 
 signed main() {
   code_brains;
-  // int t;
-  // cin >> t;
-  // cout << power(2, 1e6);
-  // while(t--){
-  //   int n, l, r;
-  //   cin >> n >> l >> r;
+  // calculate_factorial();
+  int t;
+  cin >> t;
+  while (t--) {
+    int n, l, r;
+    cin >> n >> l >> r;
 
-  vector<vector<int>> arr(20 + 1, vector<int>(0, 0));
-  // debug(arr);
-  arr[1] = {1, 0, 1};
+    // n++;
 
-  // debug(arr);
+    l = modA(n, l);
+    r = modA(r, n);
 
-  for (int i = 2; i <= 20; i++) {
-    vi temp;
-    for (int j = 0; j < arr[i - 1].size(); j++) {
-      temp.push_back(arr[i - 1][j]);
+    vector<int> ans;
+    ans.push_back(1);
+    ans.push_back(0);
+    int res = 1;
+    for (int i = 0; i < r; i++) {
+      res = modM(res, (n - i));
+      res = modD(res, (i + 1));
+      cout << res << " ";
+      ans.push_back(res);
+      ans.push_back(0);
     }
 
-    int j = 2, k = 0;
-    for (; j < temp.size(); j++) {
-      temp[j] += arr[i - 1][k];
-      k++;
+    // debug(ans);
+    for (int i = l; i <= r; i++) {
+      cout << ans[i] << " ";
     }
-
-    // exhausting extra k's
-    while (k < arr[i - 1].size()) {
-      temp.push_back(arr[i - 1][k]);
-      k++;
-    }
-
-    // debug(temp);
-    // arr[i].push_back(temp);
-    arr[i] = temp;
+    cout << '\n';
+    // debug(ans);
   }
-
-  // debug(arr);
-  // }
   return 0;
 }
 
