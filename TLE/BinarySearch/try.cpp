@@ -120,10 +120,56 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
+signed main() {
   code_brains;
-int main() {
-  ull a = -10;
-  cout << a << '\n';
+  int n, k;
+  cin >> n >> k;
+
+  vi ans(32, 0);
+  // map<int, int> m;
+  queue<int> q;
+
+  for (int i = 0; i <= 30; i++) {
+    if (n & 1 << i) {
+      ans[i]++;
+      if (i) q.push(i);
+    }
+  }
+
+  int len = accumulate(all(ans), 0);
+
+  if (len > k) {
+    cout << "NO\n";
+    return 0;
+  }
+
+  while (len < k && !q.empty()) {
+    int temp = q.front();
+    q.pop();
+    ans[temp]--;
+
+    ans[temp - 1] += 2;
+
+    if (temp - 1) {
+      q.push(temp - 1);
+      q.push(temp - 1);
+    }
+    len++;
+  }
+
+  if (len < k) {
+    cout << "NO\n";
+    return 0;
+  }
+
+  cout << "YES\n";
+  for(int i = 0; i <= 30; i++) {
+    if(ans[i]) {
+      for(int j = 0; j < ans[i]; j++) {
+        cout << (1 << i) << " ";
+      }
+    }
+  }
   return 0;
 }
 
