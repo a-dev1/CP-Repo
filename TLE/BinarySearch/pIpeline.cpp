@@ -119,36 +119,38 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-ll maxPipes(int k) { return (k * (k + 1) / 2) - (k - 1); }
+ll maxPipes(ll k) { return (k * (k + 1LL) / 2LL) - (k - 1LL); }
 
+// k = 3
+// 3 => 7
+// 2 * 5 => 10 - 3
 signed main() {
   code_brains;
   ll n, k;
   cin >> n >> k;
-
+  // n--;
+  // k--;
   ll atMost = maxPipes(k);
+  if (n == 0) {
+    cout << 0 << "\n";
+    return 0;
+  }
+
   if (atMost < n) {
     cout << -1 << '\n';
     return 0;
   }
 
-  auto ok = [&](ll x) {
-    ll atMost = maxPipes(x);
-    return n <= atMost;
-  };
-
-  ll l = 0, h = k, ans = -1;
-  while (l <= h) {
-    ll mid = l + (h - l) / 2;
-    if (ok(mid)) {
-      ans = mid;
-      h = mid - 1;
+  ll l = 1, r = k;
+  while (l < r) {
+    ll m = (l + r + 1LL) / 2LL;
+    if ((((m + k) * (k - m + 1ll)) / 2ll) >= n) {
+      l = m;
     } else
-      l = mid + 1;4 3
-
+      r = m - 1;
   }
 
-  cout << ans << '\n';
+  cout << k - l + 1 << '\n';
 }
 
 // 2 ................. n

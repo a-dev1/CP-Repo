@@ -122,54 +122,48 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-  int n, k;
-  cin >> n >> k;
+  ll n;
+  cin >> n;
 
-  vi ans(32, 0);
-  // map<int, int> m;
-  queue<int> q;
+  lld pre = 1e-8;
+  vector<lld> P(n);
+  for (auto &i : P) cin >> i;
 
-  for (int i = 0; i <= 30; i++) {
-    if (n & 1 << i) {
-      ans[i]++;
-      if (i) q.push(i);
+  vector<lld> S(n);
+  for (auto &i : S) cin >> i;
+
+  auto ok = [&](lld x) {
+    lld l = -2e10, r = 2e10;
+
+    for (int i = 0; i < n; i++) {
+      l = max(l, P[i] - (x * S[i]));
+      r = min(r, P[i] + (x * S[i]));
+    }
+
+    return l <= r;
+  };
+
+  lld l = 0, h = 1e9 + 1, ans = 0;
+
+  while ((h - l) > pre) {
+    // debug(l);
+    // debug(h);
+
+    lld mid = (l + h) / 2.0;
+    // debug(mid);
+
+    if (ok(mid)) {
+      ans = mid;
+      h = mid;
+    } else {
+      l = mid;
     }
   }
 
-  int len = accumulate(all(ans), 0);
-
-  if (len > k) {
-    cout << "NO\n";
-    return 0;
-  }
-
-  while (len < k && !q.empty()) {
-    int temp = q.front();
-    q.pop();
-    ans[temp]--;
-
-    ans[temp - 1] += 2;
-
-    if (temp - 1) {
-      q.push(temp - 1);
-      q.push(temp - 1);
-    }
-    len++;
-  }
-
-  if (len < k) {
-    cout << "NO\n";
-    return 0;
-  }
-
-  cout << "YES\n";
-  for(int i = 0; i <= 30; i++) {
-    if(ans[i]) {
-      for(int j = 0; j < ans[i]; j++) {
-        cout << (1 << i) << " ";
-      }
-    }
-  }
+  // debug(l);
+  // debug(h);
+  cout << setprecision(13);
+  cout << ans << '\n';
   return 0;
 }
 
