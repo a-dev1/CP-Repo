@@ -123,17 +123,13 @@ void _print(map<T, V> v) {
 signed main() {
   code_brains;
 
-  vector<ll> nearestPrime(1e6 + 10, -1);
-  int N = 1e6;
+  map<int, int> m{{1, 101}, {5, 20}, {3, 15}, {10, 101}, {11, 99}};
 
-  nearestPrime[0] = 0, nearestPrime[1] = 1;
-  for (ll i = 2; i <= N; i++) {
-    for (ll j = i; j <= N; j *= i) {
-      if (nearestPrime[j] == -1) {
-        nearestPrime[j] = i;
-      }
-    }
-  }
+  auto itr = max_element(m.begin(), m.end(), [](const auto &a, const auto &b) {
+    return a.se > b.se;
+  });
+
+  cout << itr->first << '\n';
   return 0;
 }
 

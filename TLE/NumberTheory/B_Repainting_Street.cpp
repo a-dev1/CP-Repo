@@ -134,6 +134,9 @@ signed main() {
       cin >> i;
       m[i]++;
     }
+    max_element(m.being(), m.end(), [](const auto &a, const auto &b) {
+      re
+    }
 
     ll rAns = 1e9;
     // debug(ans);
