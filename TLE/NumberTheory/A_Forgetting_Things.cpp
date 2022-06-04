@@ -122,10 +122,21 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  int a, b;
+  cin >> a >> b;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
+  if (a == 9 and b == 1) {
+    cout << 9 << " " << 10 << '\n';
+    return 0;
+  }
+  if (b - a == 1) {
+    cout << a << " " << b << '\n';
+    return 0;
+  } else if (a == b) {
+    cout << a * 10 << " " << (b * 10) + 1 << "\n";
+  } else {
+    cout << -1 << '\n';
+  }
   return 0;
 }
 

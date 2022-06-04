@@ -127,25 +127,30 @@ signed main() {
   vector<ll> arr(n);
   for (auto &i : arr) cin >> i;
 
-  vector<bool> SE(1e6 + 10, true);
+  vector<bool> prime(1e6 + 10, true);
   int N = 1e6;
 
-  SE[0] = false, SE[1] = false;
-  for (ll i = 2; i <= N; i++) {
-    if (SE[i])
-      for (ll j = i * i; j <= N; j *= i) {
-        SE[j] = false;
-      }
+  prime[1] = false;
+  prime[0] = false;
+  for (int p = 2; p * p <= N; p++) {
+    if (prime[p] == true) {
+      for (int i = p * p; i <= N; i += p) prime[i] = false;
+    }
   }
-
-  for(int i = 1; i <= 10; i++) {
-    debug(i);
-  }
+  // SE[0] = false, SE[1] = false;
+  // for (ll i = 2; i*i <= N; i++) {
+  //   if (SE[i])
+  //     for (int j = 2; i * j < N; j++) {
+  //       SE[i*j] = false; v 
+  //     }
+  // }
+  // for (int i = 1; i < 10; i++) cout << prime[i] << " ";
+  // cout << '\n';
   for (ll i : arr) {
     ll root = sqrt(i);
     bool ans = false;
-    if (root *root == i) {
-      if (SE[root]) ans = true;
+    if (root * root == i) {
+      if (prime[root]) ans = true;
     }
     if (ans)
       cout << "YES\n";

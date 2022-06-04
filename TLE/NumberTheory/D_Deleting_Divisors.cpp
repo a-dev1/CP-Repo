@@ -119,13 +119,31 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+vector<bool> prime(1e5);
+
+void SE() {
+  prime[0] = false, prime[1] = false;
+
+  for (ll i = 2; i * i <= 1e5; i++)
+    for (ll j = i * i; j <= 1e5 && prime[i]; j += i) prime[j] = false;
+}
 
 signed main() {
   code_brains;
+  SE();
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n;
+    cin >> n;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
+    auto isPrime = [&](ll n) {
+      for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+      }
+      return true;
+    }
+  }
   return 0;
 }
 

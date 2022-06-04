@@ -35,24 +35,24 @@ const int MOD = 1e9 + 7;
 #define pi pair<int, int>
 #define pl pair<ll, ll>
 
-int M = 1e9 + 7;
-int power(int a, int n) {
-  int result = 1;
+// int M = 1e9 + 7;
+ll power(ll a, ll n) {
+  ll result = 1;
   while (n) {
-    if (n & 1) result = (result * (ll)a) % M;
+    if (n & 1) result = (result * (ll)a);
     n >>= 1;
-    a = (a * (ll)a) % M;
+    a = (a * (ll)a);
   }
   return result;
 }
 
-int power(int a, int n);
-int minv(int a) { return power(a, M - 2); }
-int mod(int n) { return (n % M + M) % M; }
-int modM(int n, int m) { return ((ll)(n % M) * (m % M)) % M; }
-int modA(int n, int m) { return ((ll)(n % M) + (m % M)) % M; }
-int modS(int n, int m) { return (((ll)(n % M) - (m % M)) + M) % M; }
-int modD(int n, int m) { return ((ll)(n % M) * (minv(m) % M)) % M; }
+ll power(ll a, ll n);
+// int minv(int a) { return power(a, M - 2); }
+// int mod(int n) { return (n % M + M) % M; }
+// int modM(int n, int m) { return ((ll)(n % M) * (m % M)) % M; }
+// int modA(int n, int m) { return ((ll)(n % M) + (m % M)) % M; }
+// int modS(int n, int m) { return (((ll)(n % M) - (m % M)) + M) % M; }
+// int modD(int n, int m) { return ((ll)(n % M) * (minv(m) % M)) % M; }
 int lcm(int a, int b) { return ((ll)a * b) / __gcd(a, b); }
 
 void _print(ll t) { cerr << t; }
@@ -120,13 +120,18 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
-signed main() {
-  code_brains;
+int main() {
+  int n, p;
+  cin >> n >> p;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
-  return 0;
+  for (int k = 1; k <= 10000; k++) {
+    int F = n - k * p;
+    if (F >= k && k >= __builtin_popcount(F)) {
+      cout << k << endl;
+      exit(0);
+    }
+  }
+  cout << -1 << endl;
 }
 
 ///////////////////////////////////////////////////////////////

@@ -122,10 +122,34 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n, k, d;
+    cin >> n >> k >> d;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
+    vector<ll> arr(n);
+    for (auto &i : arr) cin >> i;
+
+    map<ll, ll> m;
+
+    for (int i = 0; i < d; i++) {
+      m[arr[i]]++;
+    }
+
+    ll ans = m.size();
+    int l = 0, r = d;
+    while (l < n && r < n) {
+      m[arr[l]]--;
+      if (m[arr[l]] == 0) m.erase(arr[l]);
+      l++;
+      m[arr[r]]++;
+      r++;
+      ans = min(ans, (ll)m.size());
+    }
+
+    cout << ans << '\n';
+  }
   return 0;
 }
 

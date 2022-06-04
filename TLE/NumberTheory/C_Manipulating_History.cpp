@@ -122,10 +122,29 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    int n;
+    cin >> n;
+    vector<string> arr(2 * n);
+    for (auto &i : arr) cin >> i;
+    string ans;
+    cin >> ans;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
+    map<char, int> m;
+    for (string str : arr) {
+      for (char c : str) m[c]++;
+    }
+
+    for (char c : ans) m[c]++;
+
+    for (auto i : m) {
+      if (i.se % 2 != 0) {
+        cout << i.fi << "\n";
+      }
+    }
+  }
   return 0;
 }
 

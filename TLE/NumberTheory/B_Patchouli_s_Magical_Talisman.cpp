@@ -122,10 +122,43 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    ll mn = 1e13;
+    ll oddCount = 0;
 
-  int n;
-  n = 5;
-  cout << (n & -n) << '\n';
+    for (ll &i : arr) {
+      cin >> i;
+      if (i % 2 != 0) {
+        oddCount++;
+      }
+      mn = min(mn, i);
+    }
+
+    if (oddCount == 0) {
+      ll ans = 1e10;
+      for (int i = 0; i < n; i++) {
+        ll temp = 0LL;
+        while (arr[i] % 2 == 0) {
+          arr[i] /= 2;
+          temp++;
+        }
+        ans = min(ans, temp);
+      }
+      // while (mn % 2 == 0) {
+      //   mn /= 2;
+      //   ans++;
+      // }
+      cout << (n - 1) + ans << '\n';
+      // continue;
+    } else {
+      cout << n - oddCount << '\n';
+    }
+  }
   return 0;
 }
 
