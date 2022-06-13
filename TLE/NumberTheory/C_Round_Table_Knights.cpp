@@ -129,17 +129,32 @@ signed main() {
   for (auto &i : arr) cin >> i;
 
   auto check = [&](int x) {
-    
+    ll total = x;
+    if (n / x < 3) return false;
+    for (int idx = 0; idx < total; idx++) {
+      ll cnt = n / x;
+      bool possible = true;
+      for (int i = idx; cnt > 0; i += x) {
+        i = i % n;
+        cnt--;
+        if (!arr[i]) {
+          possible = false;
+          break;
+        }
+      }
+      if (possible) return true;
+    }
+    return false;
   };
 
   for (int i = 1; i * i <= n; i++) {
-    if (n % t) continue;
+    if (n % i) continue;
     if (check(i) || check(n / i)) {
       cout << "YES\n";
       return 0;
     }
-    cout << "NO\n";
   }
+  cout << "NO\n";
   return 0;
 }
 
