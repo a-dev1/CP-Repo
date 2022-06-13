@@ -27,6 +27,7 @@ const int MOD = 1e9 + 7;
 #define se second
 #define bg begin()
 #define ed end()
+#define set_bits __builtin_popcountint
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -37,8 +38,8 @@ const int MOD = 1e9 + 7;
 #define pl pair<ll, ll>
 
 int M = 1e9 + 7;
-int power(int a, int n) {
-  int result = 1;
+int power(ll a, ll n) {
+  ll result = 1;
   while (n) {
     if (n & 1) result = (result * (ll)a) % M;
     n >>= 1;
@@ -48,13 +49,13 @@ int power(int a, int n) {
 }
 
 int power(int a, int n);
-int minv(int a) { return power(a, M - 2); }
-int mod(int n) { return (n % M + M) % M; }
+// int minv(int a) { return power(a, M - 2); }
+// int mod(int n) { return (n % M + M) % M; }
 int modM(int n, int m) { return ((ll)(n % M) * (m % M)) % M; }
 int modA(int n, int m) { return ((ll)(n % M) + (m % M)) % M; }
 int modS(int n, int m) { return (((ll)(n % M) - (m % M)) + M) % M; }
-int modD(int n, int m) { return ((ll)(n % M) * (minv(m) % M)) % M; }
-int lcm(int a, int b) { return ((ll)a * b) / __gcd(a, b); }
+// int modD(int n, int m) { return ((ll)(n % M) * (minv(m) % M)) % M; }
+// int lcm(int a, int b) { return ((ll)a * b) / __gcd(a, b); }
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -121,40 +122,45 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 
+int mod = 1e9 + 7;
+
+ll tv(ll x, ll y) {
+  if (!y) return 1;
+  ll ans = tv(x, y / 2);
+  ans *= ans;
+  ans %= mod;
+  if (y & 1) ans *= x;
+  return ans % mod;
+}
+
 signed main() {
   code_brains;
-  ll n;
-  cin >> n;
-  vector<ll> arr(n);
-  for (auto &i : arr) cin >> i;
+  ll x, n;
+  cin >> x >> n;
 
-  auto check = [&](int x) {
-    ll total = x;
-    if (n / x < 3) return false;
-    for (int idx = 0; idx < total; idx++) {
-      ll cnt = n / x;
-      bool possible = true;
-      for (int i = idx; cnt > 0; i += x) {
-        i = i % n;
-        cnt--;
-        if (!arr[i]) {
-          possible = false;
-          break;
-        }
-      }
-      if (possible) return true;
-    }
-    return false;
-  };
-
-  for (int i = 1; i <= n; i++) {
-    if (n % i) continue;
-    if (check(i)) {
-      cout << "YES\n";
-      return 0;
+  vl arr;
+  for (ll i = 2; i * i <= x; i++) {
+    if (x % i == 0) {
+      arr.push_back(i);
+      while (x % i == 0) x /= i;
     }
   }
-  cout << "NO\n";
+  if (x != 1) arr.push_back(x);
+
+  ll ans = 1;
+  for (auto prime : arr) {
+    ll sum = 0;
+    ll x = n / prime;
+
+    while (x) {
+      sum += x;
+      x /= prime;
+    }
+
+    ans *= power(prime, sum);
+    ans %= M;
+  }
+  cout << ans << '\n';
   return 0;
 }
 
