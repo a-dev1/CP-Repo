@@ -119,24 +119,30 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-vector<bool> prime(1e5);
-
-void SE() {
-  prime[0] = false, prime[1] = false;
-
-  for (ll i = 2; i * i <= 1e5; i++)
-    for (ll j = i * i; j <= 1e5 && prime[i]; j += i) prime[j] = false;
-}
-
+bool comp(pi const &a, pi const &b) { return a.fi > b.fi; }
 signed main() {
   code_brains;
-  SE();
-  int t;
-  cin >> t;
-  while (t--) {
-    ll n;
-    cin >> n;
+  ll n;
+  cin >> n;
+  vector<pi> arr(n);
+
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i].fi;
+    arr[i].se = i;
   }
+
+  // debug(arr);
+  sort(arr.begin(), arr.end(), comp);
+  // debug(arr);
+
+  ll ans = 1;
+  for (int i = 1; i < n; i++) {
+    ans += ((arr[i].fi * i) + 1);
+  }
+
+  cout << ans << "\n";
+  for (auto i : arr) cout << i.se + 1<< " ";
+  cout << "\n";
   return 0;
 }
 

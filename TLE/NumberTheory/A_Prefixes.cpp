@@ -119,24 +119,64 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-vector<bool> prime(1e5);
-
-void SE() {
-  prime[0] = false, prime[1] = false;
-
-  for (ll i = 2; i * i <= 1e5; i++)
-    for (ll j = i * i; j <= 1e5 && prime[i]; j += i) prime[j] = false;
-}
 
 signed main() {
   code_brains;
-  SE();
-  int t;
-  cin >> t;
-  while (t--) {
-    ll n;
-    cin >> n;
+  int n;
+  cin >> n;
+  string str;
+  cin >> str;
+
+  int ea = 0, eb = 0, oa = 0, ob = 0, ans = 1e7;
+  // all a's at odd
+  int temp1 = 0;
+  string t1 = str;
+  for (int i = 1; i < n; i += 2) {
+    if (str[i] != 'a') {
+      temp1++;
+      t1[i] = 'a';
+    }
   }
+
+  for (int i = 0; i < n; i += 2) {
+    if (str[i] != 'b') {
+      temp1++;
+      t1[i] = 'b';
+    }
+  }
+
+  ans = min(ans, temp1);
+
+  // all a's at even
+  int temp2 = 0;
+  string t2 = str;
+  for (int i = 1; i < n; i += 2) {
+    if (str[i] != 'b') {
+      temp2++;
+      t2[i] = 'b';
+    }
+  }
+
+  for (int i = 0; i < n; i += 2) {
+    if (str[i] != 'a') {
+      temp2++;
+      t2[i] = 'a';
+    }
+  }
+
+  ans = min(temp2, ans);
+  cout << ans << '\n';
+  if(ans == temp1) 
+    cout << t1 << "\n";
+  else 
+    cout << t2 << "\n";
+  // for (int i = 0; i < n; i += 2) {
+  //   if (str[i] == 'a')
+  //     oa++;
+  //   else
+  //     ob++;
+  // }
+
   return 0;
 }
 

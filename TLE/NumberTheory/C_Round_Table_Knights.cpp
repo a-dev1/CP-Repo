@@ -27,7 +27,8 @@ const int MOD = 1e9 + 7;
 #define se second
 #define bg begin()
 #define ed end()
-#define set_bits __builtin_popcountint
+#define setBits __builtin_popcount
+#define setBitsll __builtin_popcountll
 #define vl vector<ll>
 #define vi vector<int>
 #define vvi vector<vector<int>>
@@ -119,23 +120,25 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-vector<bool> prime(1e5);
-
-void SE() {
-  prime[0] = false, prime[1] = false;
-
-  for (ll i = 2; i * i <= 1e5; i++)
-    for (ll j = i * i; j <= 1e5 && prime[i]; j += i) prime[j] = false;
-}
 
 signed main() {
   code_brains;
-  SE();
-  int t;
-  cin >> t;
-  while (t--) {
-    ll n;
-    cin >> n;
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
+
+  auto check = [&](int x) {
+    
+  };
+
+  for (int i = 1; i * i <= n; i++) {
+    if (n % t) continue;
+    if (check(i) || check(n / i)) {
+      cout << "YES\n";
+      return 0;
+    }
+    cout << "NO\n";
   }
   return 0;
 }
