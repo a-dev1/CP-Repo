@@ -1,0 +1,1 @@
+{"name":"Local: try","url":"f:\\CP\\Git_CP\\challenges\\799 (Div 4)\\try.cpp","tests":[{"id":1655217242819,"input":"6\n03:12 360\n00:00 1\n13:22 2\n15:15 10\n11:11 1440\n22:30 27","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\challenges\\799 (Div 4)\\try.cpp","group":"local","local":true}
