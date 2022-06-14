@@ -121,35 +121,14 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-void dfs(int root, vector<vector<int>>& adj, int parent, vector<int>& seq) {
-  seq.push_back(root + 1);
-
-  for (int child : adj[root]) {
-    if (parent != child) dfs(child, adj, root, seq);
-  }
-}
 
 signed main() {
   code_brains;
-
-  int n;
-  cin >> n;
-
-  vector<vector<int>> adj(n + 1, vector<int>());
-  for (int i = 0; i < n - 1; i++) {
-    int a, b;
-    cin >> a >> b;
-    adj[a - 1].push_back(b - 1);
-    adj[b - 1].push_back(a - 1);
-  }
-
-  vector<int> visited(n, 0);
-  vector<int> seq;
-
-  // dfs(0, adj, visited, seq);
-  dfs(0, adj, -1, seq);
-  // we can do it without using visited array
-  for (auto i : seq) cout << i << " ";
+  vvl arr(5, vl());
+  arr[1].push_back(10);
+  arr[1].push_back(20);
+  debug(arr);
+  cout << arr[3].size() << '\n';
   return 0;
 }
 

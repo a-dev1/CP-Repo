@@ -3,7 +3,7 @@
 #define code_brains                 \
   ;                                 \
   ios_base::sync_with_stdio(false); \
-cin.tie(NULL);                    \
+  cin.tie(NULL);                    \
   cout.tie(0);
 using namespace std;
 
@@ -17,7 +17,10 @@ const int MOD = 1e9 + 7;
 #define PI 3.1415926535897932384626
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
-#define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
+#define debug(x)     \
+  cerr << #x << " "; \
+  _print(x);         \
+  cerr << endl;
 #define present(c, x) (c.find(x) != c.end())
 #define desc greater<int>()
 #define fi first
@@ -36,13 +39,13 @@ const int MOD = 1e9 + 7;
 
 int M = 1e9 + 7;
 int power(int a, int n) {
-int result = 1;
-while (n) {
-if (n & 1) result = (result * (ll)a) % M;
-n >>= 1;
-a = (a * (ll)a) % M;
-}
-return result;
+  int result = 1;
+  while (n) {
+    if (n & 1) result = (result * (ll)a) % M;
+    n >>= 1;
+    a = (a * (ll)a) % M;
+  }
+  return result;
 }
 
 int power(int a, int n);
@@ -54,34 +57,109 @@ int modS(int n, int m) { return (((ll)(n % M) - (m % M)) + M) % M; }
 int modD(int n, int m) { return ((ll)(n % M) * (minv(m) % M)) % M; }
 int lcm(int a, int b) { return ((ll)a * b) / __gcd(a, b); }
 
-void _print(ll t) {cerr << t;}
-void _print(int t) {cerr << t;}
-void _print(string t) {cerr << t;}
-void _print(char t) {cerr << t;}
-void _print(lld t) {cerr << t;}
-void _print(double t) {cerr << t;}
-void _print(ull t) {cerr << t;}
+void _print(ll t) { cerr << t; }
+void _print(int t) { cerr << t; }
+void _print(string t) { cerr << t; }
+void _print(char t) { cerr << t; }
+void _print(lld t) { cerr << t; }
+void _print(double t) { cerr << t; }
+void _print(ull t) { cerr << t; }
 
-
-template <class T, class V> void _print(pair <T, V> p);
-template <class T> void _print(vector <T> v);
-template <class T> void _print(set <T> v);
-template <class T, class V> void _print(map <T, V> v);
-template <class T> void _print(multiset <T> v);
-template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
-template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
-template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
-template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
-template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V>
+void _print(pair<T, V> p);
+template <class T>
+void _print(vector<T> v);
+template <class T>
+void _print(set<T> v);
+template <class T, class V>
+void _print(map<T, V> v);
+template <class T>
+void _print(multiset<T> v);
+template <class T, class V>
+void _print(pair<T, V> p) {
+  cerr << "{";
+  _print(p.first);
+  cerr << ",";
+  _print(p.second);
+  cerr << "}";
+}
+template <class T>
+void _print(vector<T> v) {
+  cerr << "[ ";
+  for (T i : v) {
+    _print(i);
+    cerr << " ";
+  }
+  cerr << "]";
+}
+template <class T>
+void _print(set<T> v) {
+  cerr << "[ ";
+  for (T i : v) {
+    _print(i);
+    cerr << " ";
+  }
+  cerr << "]";
+}
+template <class T>
+void _print(multiset<T> v) {
+  cerr << "[ ";
+  for (T i : v) {
+    _print(i);
+    cerr << " ";
+  }
+  cerr << "]";
+}
+template <class T, class V>
+void _print(map<T, V> v) {
+  cerr << "[ ";
+  for (auto i : v) {
+    _print(i);
+    cerr << " ";
+  }
+  cerr << "]";
+}
 
 ///////////////////////////////////////////////////////////////
+bool possible = true;
+
+void dfs(int root, vector<vector<int>>& adj) {
+  if (adj[root].size() > 0) {
+    int cnt = 0;
+    for (int child : adj[root]) {
+      if (adj[child].size() == 0) cnt++;
+      if (cnt == 3) break;
+    }
+    if (cnt < 3) {
+      possible = false;
+    }
+  }
+
+  for (int child : adj[root]) {
+    dfs(child, adj);
+  }
+}
 
 signed main() {
   code_brains;
   int n;
   cin >> n;
-  vector<vector<int>> adj;
-  
+  // bool possible = true;
+
+  vector<vector<int>> adj(n + 1, vector<int>());
+
+  for (int i = 2; i <= n; i++) {
+    int temp;
+    cin >> temp;
+    adj[temp].push_back(i);
+  }
+
+  dfs(1, adj);
+
+  if (possible)
+    cout << "Yes\n";
+  else
+    cout << "No\n";
   return 0;
 }
 
