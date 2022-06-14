@@ -121,54 +121,26 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-bool possible = true;
-
-// void dfs(int root, vector<vector<int>>& adj) {
-
-// }
 
 signed main() {
   code_brains;
-  int n;
-  cin >> n;
-  // bool possible = true;
+  int n, m;
+  cin >> n >> m;
+  // wrong if more than m
+  vvi ad(n + 1, vi());
+  vi catNode(n + 1);
 
-  vector<vector<int>> adj(n + 1, vector<int>());
+  for (int i = 1; i <= n; i++) cin >> catNode[i];
 
-  for (int i = 2; i <= n; i++) {
-    int temp;
-    cin >> temp;
-    adj[temp].push_back(i);
+  for (int i = 1; i <= n - 1; i++) {
+    int u, v;
+    cin >> u >> v;
+    ad[u].pb(v);
+    ad[v].pb(u);
   }
 
-  int cnt = 0;
-  function<void(int root)> dfs;
-  
-  dfs = [&](int root) {
-    cnt++;
-    if (adj[root].size() > 0) {
-      int cnt = 0;
-      for (int child : adj[root]) {
-        if (adj[child].size() == 0) cnt++;
-        if (cnt == 3) break;
-      }
-      if (cnt < 3) {
-        possible = false;
-      }
-    }
-
-    for (int child : adj[root]) {
-      dfs(child);
-    }
-  };
-
-  dfs(1);
-  debug(cnt);
-
-  if (possible)
-    cout << "Yes\n";
-  else
-    cout << "No\n";
+  vi parentOf(n + 1, -1);
+  dfs(1, )
   return 0;
 }
 
