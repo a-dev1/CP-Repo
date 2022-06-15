@@ -27,7 +27,7 @@ const int MOD = 1e9 + 7;
 #define se second
 #define bg begin()
 #define ed end()
-#define set_bits __builtin_popcountint
+#define pb push_back
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -126,12 +126,10 @@ signed main() {
   code_brains;
   int n, m;
   cin >> n >> m;
-  // wrong if more than m
-  vvi ad(n + 1, vi());
   vi catNode(n + 1);
-
   for (int i = 1; i <= n; i++) cin >> catNode[i];
 
+  vvi ad(n + 1);
   for (int i = 1; i <= n - 1; i++) {
     int u, v;
     cin >> u >> v;
@@ -139,8 +137,29 @@ signed main() {
     ad[v].pb(u);
   }
 
-  vi parentOf(n + 1, -1);
-  dfs(1, )
+  vi isPossible(n + 1, 0);
+  int ans = 0;
+  // int cnt = 0, mx = 0;
+
+  function<void(int root, int parent, int cnt, int mx)> dfs;
+  dfs = [&](int root, int parent, int cnt, int mx) {
+    if (catNode[root])
+      cnt++;
+    else
+      cnt = 0;
+    mx = max(mx, cnt);
+
+    if (ad[root].size() == 1 && root != 1)
+      if (mx <= m) ans++;
+
+    for (int child : ad[root])
+      if (child != parent) dfs(child, root, cnt, mx);
+  };
+
+  int cnt = 0, mx = 0;
+  dfs(1, 0, cnt, mx);
+
+  cout << ans << '\n';
   return 0;
 }
 
