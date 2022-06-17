@@ -25,9 +25,10 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
+#define pb push_back
 #define bg begin()
 #define ed end()
-#define pb push_back
+#define set_bits __builtin_popcountint
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -121,62 +122,27 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-void debugq(queue<int> q) {
-  while (!q.empty()) {
-    cout << q.front() << " ";
-    q.pop();
-  }
-  cout << '\n';
-}
 
 signed main() {
   code_brains;
-  int t;
-  cin >> t;
-  while (t--) {
-    int n, k;
-    cin >> n >> k;
+  int n;
+  lld x;
+  cin >> n >> x;
 
-    vvi ad(n + 1, vi());
-    vi childCount(n + 1, 0);
-    for (int i = 1; i <= n - 1; i++) {
-      int u, v;
-      cin >> u >> v;
-      ad[u].pb(v);
-      ad[v].pb(u);
-      childCount[u]++;
-      childCount[v]++;
-    }
-
-    if (n <= 2) {
-      cout << 0 << '\n';
-      continue;
-    }
-
-    int lost = 0;
-    queue<int> q;
-    for (int i = 1; i <= n; i++)
-      if (childCount[i] == 1) q.push(i);
-
-    // simulating the process
-    while (!q.empty() && k > 0) {
-      k--;
-      queue<int> temp;
-      lost += q.size();
-
-      while (!q.empty()) {
-        int leaf = q.front();
-        q.pop();
-
-        for (int relative : ad[leaf]) {
-          childCount[relative]--;
-          if (childCount[relative] == 1) temp.push(relative);
-        }
-      }
-      q = temp;
-    }
-
-    cout << n - lost << '\n';
+  vvl ad(n + 1);
+  for (int i = 1; i <= n - 1; i++) {
+    int u, v;
+    cin >> u >> v;
+    ad[u].pb(v);
+    ad[v].pb(u);
   }
+
+  lld ans = 0;
+  for (int i = 1; i <= n; i++)
+    if (ad[i].size() == 1) ans++;
+
+  cout << setprecision(19) << (lld)2.0 * (x / ans) << '\n';
   return 0;
 }
+
+///////////////////////////////////////////////////////////////
