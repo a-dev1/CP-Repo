@@ -25,10 +25,9 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
-#define pb push_back
 #define bg begin()
 #define ed end()
-#define set_bits __builtin_popcountint
+#define pb push_back
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -122,83 +121,73 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-bool possible = false;
+int n, k;
+vi val;
+vvi ad;
+int xAll;
+int cnt;
+
+int dfs(int u, int p) {
+  int x = val[u];
+  for (auto child : ad[u]) {
+    if (child != p) {
+      x ^= dfs(child, u);
+    }
+  }
+
+  // debug(x);
+  if (x == xAll) {
+    cnt++;
+    return 0;
+  }
+
+  return x;
+}
 
 signed main() {
   code_brains;
-  int n;
-  cin >> n;
+  int t;
+  cin >> t;
+  while (t--) {
+    cin >> n >> k;
 
-  vvi ad(n + 1);
-  for (int i = 1; i <= n - 1; i++) {
-    int u, v;
-    cin >> u >> v;
-    ad[u].pb(v);
-    ad[v].pb(u);
-  }
+    val.resize(n + 1);
+    ad.clear();
+    ad.resize(n + 1);
+    xAll = 0;
+    cnt = 0;
 
-  vector<int> color(n + 1);
-  for (int i = 1; i <= n; i++) cin >> color[i];
-
-  vector<pi> ans;
-
-  function<void(int root, int parent)> dfs;
-  dfs = [&](int root, int parent) {
-    for (auto child : ad[root]) {
-      if (child != parent) {
-        if (color[child] != color[root]) ans.pb(make_pair(root, child));
-        dfs(child, root);
-      }
+    for (int i = 1; i <= n; i++) {
+      cin >> val[i];
+      xAll ^= val[i];
     }
-  };
 
-  dfs(1, -1);
-
-  // debug(ans);
-  if (ans.size() == 0) {
-    cout << "YES\n";
-    cout << 1 << '\n';
-    return 0;
-  }
-
-  if (ans.size() == 1) {
-    cout << "YES\n";
-    cout << ans[0].fi << '\n';
-    return 0;
-  }
-
-  bool check = true;
-  int common = -1;
-
-  map<int, int> mp;
-  mp[ans[0].fi]++;
-  mp[ans[0].se]++;
-  mp[ans[1].fi]++;
-  mp[ans[1].se]++;
-
-  if (mp.size() != 4) {
-    for (auto i : mp) {
-      if (i.se > 1) {
-        common = i.fi;
-        break;
-      }
+    for (int i = 1; i <= n - 1; i++) {
+      int u, v;
+      cin >> u >> v;
+      ad[u].pb(v);
+      ad[v].pb(u);
     }
-  }
-  // debug(mp);
-  // debug(common);
 
-  for (int i = 2; i < ans.size() && common != -1; i++) {
-    if (common != ans[i].fi && common != ans[i].se) {
-      check = false;
-      break;
+    // debug(ad);
+    // debug(xAll);
+    // debug(val);
+
+    if (xAll == 0) {
+      cout << "YES\n";
+      continue;
+    } else if (k == 2) {
+      cout << "NO\n";
+      continue;
     }
-  }
 
-  if (common == -1 || check == false) {
-    cout << "NO\n";
-  } else {
-    cout << "YES\n";
-    cout << common << '\n';
+    dfs(1, -1);
+    // debug(cnt);
+
+    if (cnt >= 2)
+      cout << "YES\n";
+    else
+      cout << "NO\n";
   }
   return 0;
 }

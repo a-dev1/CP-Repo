@@ -25,10 +25,9 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
-#define pb push_back
 #define bg begin()
 #define ed end()
-#define set_bits __builtin_popcountint
+#define pb push_back
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -122,85 +121,88 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-bool possible = false;
 
 signed main() {
   code_brains;
-  int n;
-  cin >> n;
+  int t;
+  cin >> t;
+  while (t--) {
+    int n, k;
+    cin >> n >> k;
 
-  vvi ad(n + 1);
-  for (int i = 1; i <= n - 1; i++) {
-    int u, v;
-    cin >> u >> v;
-    ad[u].pb(v);
-    ad[v].pb(u);
-  }
+    vvi ad(n + 1, vi());
+    set<int> s;
+    vi childCount(n + 1, 0);
+    for (int i = 1; i <= n - 1; i++) {
+      int u, v;
+      cin >> u >> v;
+      ad[u].pb(v);
+      ad[v].pb(u);
+    }
 
-  vector<int> color(n + 1);
-  for (int i = 1; i <= n; i++) cin >> color[i];
+    if (n == 1) {
+      cout << 0 << '\n';
+      continue;
+    }
 
-  vector<pi> ans;
+    int roo = -1, ss = 0;
+    for (int i = 1; i <= n; i++) {
+      childCount[i] = ad[i].size();
 
-  function<void(int root, int parent)> dfs;
-  dfs = [&](int root, int parent) {
-    for (auto child : ad[root]) {
-      if (child != parent) {
-        if (color[child] != color[root]) ans.pb(make_pair(root, child));
-        dfs(child, root);
+      if (ad[i].size() == 1) {
+        s.insert(i);
+      }
+      if (ad[i].size() >= ss) {
+        ss = ad[i].size();
+        roo = i;
       }
     }
-  };
 
-  dfs(1, -1);
+    vi parentOf(n + 1, -1);
 
-  // debug(ans);
-  if (ans.size() == 0) {
-    cout << "YES\n";
-    cout << 1 << '\n';
-    return 0;
-  }
+    function<void(int root, int parent)> dfs;
+    dfs = [&](int root, int parent) {
+      parentOf[root] = parent;
+      for (auto child : ad[root]) {
+        if (child != parent) dfs(child, root);
+      }
+    };
 
-  if (ans.size() == 1) {
-    cout << "YES\n";
-    cout << ans[0].fi << '\n';
-    return 0;
-  }
+    // debug(roo);
+    dfs(roo, -1);
+    // debug(parentOf);
+    // debug(s);
+    vector<bool> visited(n + 1, false);
 
-  bool check = true;
-  int common = -1;
+    int lost = 0;
+    if (k > n) {
+      cout << 0 << "\n";
+      continue;
+    } else {
+      while (s.size() > 1 && k > 0) {
+        k--;
+        set<int> temp;
+        lost += s.size();
+        // debug(s);
+        while (s.size() > 0) {
+          int i = *s.begin();
+          visited[i] = true;
+          childCount[parentOf[i]]--;
+          if (childCount[parentOf[i]] <= 1 && !visited[parentOf[i]])
+            temp.insert(parentOf[i]);
+          s.erase(i);
+        }
+        // debug(s);
+        s = temp;
+      }
+      // debug(s.size());
 
-  map<int, int> mp;
-  mp[ans[0].fi]++;
-  mp[ans[0].se]++;
-  mp[ans[1].fi]++;
-  mp[ans[1].se]++;
-
-  if (mp.size() != 4) {
-    for (auto i : mp) {
-      if (i.se > 1) {
-        common = i.fi;
-        break;
+      if (k > 0 && s.size() > 0) {
+        lost++;
+        s.clear();
       }
     }
-  }
-  // debug(mp);
-  // debug(common);
-
-  for (int i = 2; i < ans.size() && common != -1; i++) {
-    if (common != ans[i].fi && common != ans[i].se) {
-      check = false;
-      break;
-    }
-  }
-
-  if (common == -1 || check == false) {
-    cout << "NO\n";
-  } else {
-    cout << "YES\n";
-    cout << common << '\n';
+    cout << n - lost << '\n';
   }
   return 0;
 }
-
-///////////////////////////////////////////////////////////////
