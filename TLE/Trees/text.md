@@ -91,11 +91,22 @@ Out time - the time at which we go back to the parent of a node.
 
 for a node to be the descendant of another it has to be in the range of (in and out) time of the ancestor. 
 
+================================================================
+Binary Lifting 
+--------------
+
+
+LCA(Lowest Common Ancestor)
+---------------------------
+
+
+Segment Trees
+-------------
 
 
 
 
-
+  
 
 
 
