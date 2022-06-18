@@ -124,38 +124,16 @@ void _print(map<T, V> v) {
 ///////////////////////////////////////////////////////////////
 int n;
 vvi ad;
-vi height;
+vi depth;
 int ans = -1;
 
-void dfs1(int u, int p) {
-  vi nodes;
+void dfs(int u, int p) {
   for (auto child : ad[u]) {
     if (child != p) {
-      nodes.pb(height[child]);
-      dfs1(child, u);
+      depth[child] = depth[u] + 1;
+      dfs(child, u);
     }
   }
-
-  // debug(u);
-  // debug(nodes);
-  sort(all(nodes));
-  int temp = 0, len = nodes.size();
-  if (len > 1)
-    temp += nodes[len - 1] + nodes[len - 2];
-  else if (len == 1)
-    temp += nodes[len - 1];
-
-  ans = max(ans, temp);
-}
-
-int dfs(int u, int p) {
-  int h = 0;
-  for (auto child : ad[u]) {
-    if (child != p) h = max(h, dfs(child, u));
-  }
-
-  height[u] = h + 1;
-  return h + 1;
 }
 
 signed main() {
@@ -163,8 +141,8 @@ signed main() {
   cin >> n;
   ad.clear();
   ad.resize(n + 1);
-  height.clear();
-  height.resize(n + 1);
+  depth.clear();
+  depth.resize(n + 1);
 
   for (int i = 1; i <= n - 1; i++) {
     int u, v;
@@ -174,11 +152,21 @@ signed main() {
   }
 
   dfs(1, -1);
-  // debug(height);
+  // debug(depth);
+  int x = 1;
+  for (int i = 1; i <= n; i++)
+    if (depth[i] > depth[x]) x = i;
 
-  dfs1(1, -1);
+  depth[x] = 0;
+  dfs(x, -1);
 
-  cout << ans * 3 << '\n';
+  for (int i = 1; i <= n; i++)
+    if (depth[i] > depth[x]) x = i;
+
+  cout << depth[x] * 3 << '\n';
+  // dfs1(1, -1);
+
+  // cout << ans * 3 << '\n';
   return 0;
 }
 
