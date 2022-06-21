@@ -22,12 +22,9 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
-#define pb push_back
 #define bg begin()
 #define ed end()
 #define set_bits __builtin_popcountint
-#define setBits __builtin_popcount
-#define setBitsll __builtin_popcountll
 #define vl vector<ll>
 #define vi vector<int>
 #define vvi vector<vector<int>>
@@ -79,11 +76,17 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 
 signed main() {
   code_brains;
-  vi arr{1, 2, 3, 4};
-  debug(arr);
+  ll n;
+  cin >> n;
+  vector<ll> arr(n+1);
+  for(int i = 1; i <= n; i++) cin >> arr[i];
 
-  arr.clear();
-  debug(arr);
+  //maximum no. of sub arrays with odd inversion?
+  int ans = 0, l = , r = ;
+
+  for(int i=1; i < n; i++) {
+    
+  }
   return 0;
 }
 

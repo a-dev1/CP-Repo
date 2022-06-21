@@ -94,7 +94,30 @@ for a node to be the descendant of another it has to be in the range of (in and 
 ================================================================
 Binary Lifting 
 --------------
+we basically jump power of two's to travel k distance from a node.
+we consider's the binary representation of k and uplift from a the no. of set bit times rase to the power of 2.
+for ex. k = 6, 2^1 + 2^2 (2 times);
 
+* let's say we have a black box which returns these values
+* we can create this black box with some pre-computation
+
+//Assuming that parent[i] < i
+int up[N][LOG];
+//up[v][j] -- 2^jth ancestor of v
+for v = 1 .. N:
+  up[v][0] = parent[v];
+  up[v][1] = up[ up[v][0] ][0];
+  up[v][2] = up[ up[v][1] ][1];
+  ......
+  //parent of parent basically 
+  //O(N*log(N)) time and space complexity
+
+'''
+for v = 1....N:
+  up[v][0] = parent[v];
+  for(j = 1 ... LOG-1)
+    up[v][j] = up[ up[v][j-1] ][j-1];
+'''
 
 LCA(Lowest Common Ancestor)
 ---------------------------

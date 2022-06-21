@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"f:\\CP\\Git_CP\\EASY\\C.cpp","tests":[{"id":1653937068611,"input":"5\n3\n1 2 3\n4\n4 3 2 1\n2\n1 2\n2\n2 1\n6\n4 5 6 1 2 3","output":"0\n2\n0\n1\n1"},{"id":1653937348986,"input":"1\n6\n6 5 4 3 2 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\EASY\\C.cpp","group":"local","local":true}
