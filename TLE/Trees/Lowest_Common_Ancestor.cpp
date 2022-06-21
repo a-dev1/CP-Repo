@@ -162,7 +162,7 @@ int findKthParent(int u, int k) {
 }
 
 // Using Binary UpLifting
-//logN*logN approach to find LCA
+// logN*logN approach to find LCA
 int fLca(int u, int v) {
   if (depth[u] < depth[v]) swap(u, v);
   int diff = depth[u] - depth[v];
@@ -179,7 +179,7 @@ int fLca(int u, int v) {
   int l = 0, r = depth[u], ans = -1;
   while (l <= r) {
     int mid = (l + r) / 2;
-    if (ok(mid)) {   
+    if (ok(mid)) {
       r = mid - 1;
       ans = mid;
     } else
@@ -187,6 +187,27 @@ int fLca(int u, int v) {
   }
 
   return findKthParent(u, ans);
+}
+
+// logN way of doing it
+int lca(int u, int v) {
+  if (depth[u] < depth[v]) swap(u, v);
+  int diff = depth[u] - depth[v];
+
+  u = findKthParent(u, diff);
+
+  if (u == v) return u;
+
+  for (int i = log2(n); i >= 0; i--) {
+    int parent1 = up[u][i];
+    int parent2 = up[v][i];
+    if (parent1 != parent2) {
+      u = parent1;
+      v = parent2;
+    }
+  }
+
+  return up[u][0];
 }
 
 signed main() {
@@ -227,7 +248,7 @@ signed main() {
     int u, v;
     cin >> u >> v;
     // cout << findLca(u, v) << '\n';
-    cout << fLca(u, v) << '\n';
+    cout << lca(u, v) << '\n';
   }
   return 0;
 }
