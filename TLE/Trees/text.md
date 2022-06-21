@@ -121,10 +121,21 @@ for v = 1....N:
 
 LCA(Lowest Common Ancestor)
 ---------------------------
+while computing LCA in logn steps
+we have 2^powers precomputed thus any movement from any node in 2 rase to the powers will be O(1);
+
+now we check for higher powers and move only if the parents of both of them is different.
+
+https://www.spoj.com/status/LCASQ,code_brains/
+code 
 
 
+https://youtube.com/clip/Ugkx_k63f1lv39ZZFNEkwxa5DbFaGAqf-EGh
+check the link for more explanation [short clip]
+
+--------------
 Segment Trees
--------------
+--------------
 
 
 
