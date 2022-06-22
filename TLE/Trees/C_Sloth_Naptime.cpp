@@ -123,21 +123,62 @@ void _print(map<T, V> v) {
 
 ///////////////////////////////////////////////////////////////
 vvi ad;
+vvi up;
+vi depth;
 vi path;
 int n;
-void dfs(int u, int p, vi &path) {
+
+void dfs(int u, int p) {
   for (auto child : ad[u]) {
-    if (child != p) {
-      dfs(child, u, path);
+    if (child == p) continue;
+    depth[child] = depth[u] + 1;
+
+    up[child][0] = u;
+    for (int i = 1; i <= log2(n); i++) {
+      up[child][i] = up[up[child][i - 1]][i - 1];
+    }
+    dfs(child, u);
+  }
+  // debug(up);
+}
+
+int findKthParent(int u, int k) {
+  for (int i = 0; i <= log2(k); i++) {
+    if (k & (1 << i)) u = up[u][i];
+  }
+  return u;
+}
+
+int lca(int u, int v) {
+  if (depth[u] < depth[v]) swap(u, v);
+  int diff = depth[u] - depth[v];
+  // debug(diff);
+  // debug(u);
+  // debug(v);
+  u = findKthParent(u, diff);
+  // debug(u);
+
+  if (u == v) return u;
+
+  for (int i = log2(n); i >= 0; i--) {
+    int parent1 = up[u][i];
+    int parent2 = up[v][i];
+    if (parent1 != parent2) {
+      u = parent1;
+      v = parent2;
     }
   }
+
+  return up[u][0];
 }
+
 signed main() {
   code_brains;
-  int n;
+
   cin >> n;
-  ad.clear();
-  ad.resize(n + 1);
+  up = vvi(n + 1, vi(log2(n) + 5));
+  ad = vvi(n + 1);
+  depth = vi(n + 1);
 
   for (int i = 1; i <= n - 1; i++) {
     int u, v;
@@ -145,13 +186,30 @@ signed main() {
     ad[u].pb(v), ad[v].pb(u);
   }
 
+  dfs(1, -1);
+  // debug(depth);
+
   int q;
   cin >> q;
   while (q--) {
     int a, b, x;
-    path.clear();
     cin >> a >> b >> x;
-    dfs(a, b, path);
+
+    int anc = lca(a, b);
+
+    // debug(anc);
+    int l = depth[a] - depth[anc], r = depth[b] - depth[anc];
+
+    if ((l + r) > x) {
+      // debug(l+r);
+      if (x <= l) {
+        cout << findKthParent(a, x) << '\n';
+      } else {
+        x -= l;
+        cout << findKthParent(b, (r - x)) << '\n';
+      }
+    } else
+      cout << b << '\n';
   }
 
   return 0;

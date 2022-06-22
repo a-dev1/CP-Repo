@@ -119,7 +119,7 @@ for v = 1....N:
     up[v][j] = up[ up[v][j-1] ][j-1];
 '''
 
-LCA(Lowest Common Ancestor)
+LCA(Lowest Common Ancestor) using Binary Liftin
 ---------------------------
 while computing LCA in logn steps
 we have 2^powers precomputed thus any movement from any node in 2 rase to the powers will be O(1);
