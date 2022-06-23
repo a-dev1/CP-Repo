@@ -124,35 +124,12 @@ void _print(map<T, V> v) {
 ///////////////////////////////////////////////////////////////
 vi parent;
 vi depth;
+const int MAXN = 2e5 + 5;
+const int MAXD = log2(1e9);  // ceil(log2(10^9))
+// int up[MAXN][MAXD];
 vvi up;
-vvi ad;
-
 int n;
 
-void dfs(int u, int p) {
-  for (auto child : ad[u]) {
-    if (child != p) {
-      depth[child] = depth[u] + 1;
-      dfs(child, u);
-    }
-  }
-}
-
-// Brute Force Way O(u) in each case
-int findLca(int u, int v) {
-  if (depth[u] < depth[v]) swap(u, v);
-
-  while (depth[u] > depth[v]) {
-    u = parent[u];
-  }
-
-  while (u != v) {
-    u = parent[u];
-    v = parent[v];
-  }
-
-  return u;
-}
 
 int findKthParent(int u, int k) {
   for (int i = 0; i <= log2(k); i++) {
@@ -161,94 +138,29 @@ int findKthParent(int u, int k) {
   return u;
 }
 
-// Using Binary UpLifting
-// logN*logN approach to find LCA
-int fLca(int u, int v) {
-  if (depth[u] < depth[v]) swap(u, v);
-  int diff = depth[u] - depth[v];
-
-  u = findKthParent(u, diff);
-
-  auto ok = [&](int x) {
-    int tu = u, tv = v;
-    tu = findKthParent(tu, x);
-    tv = findKthParent(tv, x);
-    return (tu == tv);
-  };
-
-  int l = 0, r = depth[u], ans = -1;
-  while (l <= r) {
-    int mid = (l + r) / 2;
-    if (ok(mid)) {
-      r = mid - 1;
-      ans = mid;
-    } else
-      l = mid + 1;
-  }
-
-  return findKthParent(u, ans);
-}
-
-// logN way of doing it
-int lca(int u, int v) {
-  if (depth[u] < depth[v]) swap(u, v);
-  int diff = depth[u] - depth[v];
-
-  u = findKthParent(u, diff);
-
-  if (u == v) return u;
-
-  for (int i = log2(n); i >= 0; i--) {
-    int parent1 = up[u][i];
-    int parent2 = up[v][i];
-    if (parent1 != parent2) {
-      u = parent1;
-      v = parent2;
-    }
-  }
-
-  return up[u][0];
-}
-
 signed main() {
   code_brains;
-  cin >> n;
-  up = vvi(n, vi(log2(n) + 5));
-  ad = vvi(n);
-  parent = depth = vi(n, 0);
-  for (int i = 0; i < n; i++) {
-    int t;
-    cin >> t;
-    while (t--) {
-      int tt;
-      cin >> tt;
-      parent[tt] = i;
-      ad[i].pb(tt);
-    }
+  int q;
+  cin >> n >> q;
+
+  up = vvi(MAXN, vi(MAXD));
+  for (int i = 1; i <= n; i++) {
+    cin >> up[i][0];
   }
 
-  dfs(0, -1);
-
-  // debug(depth);
-
-  // preComputation Steps
-  for (int i = 0; i < n; i++) up[i][0] = parent[i];
-
-  for (int j = 1; j <= log2(n); j++) {
-    for (int i = 0; i < n; i++) {
+  for (int j = 1; j <= log2(1e9); j++) {
+    for (int i = 1; i <= n; i++) {
       up[i][j] = up[up[i][j - 1]][j - 1];
     }
   }
 
-  // debug(up);
-
-  int q;
-  cin >> q;
   while (q--) {
-    int u, v;
-    cin >> u >> v;
+    int u, k;
+    cin >> u >> k;
     // cout << findLca(u, v) << '\n';
-    cout << lca(u, v) << '\n';
+    int kthNode = findKthParent(u, k);
+
+    cout << kthNode << '\n';
   }
   return 0;
 }

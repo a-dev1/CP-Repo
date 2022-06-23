@@ -133,25 +133,14 @@ void dfs(int u, int p) {
   for (auto child : ad[u]) {
     if (child != p) {
       depth[child] = depth[u] + 1;
+
+      up[child][0] = u;
+      for (int i = 1; i <= log2(n); i++) {
+        up[child][i] = up[up[child][i - 1]][i - 1];
+      }
       dfs(child, u);
     }
   }
-}
-
-// Brute Force Way O(u) in each case
-int findLca(int u, int v) {
-  if (depth[u] < depth[v]) swap(u, v);
-
-  while (depth[u] > depth[v]) {
-    u = parent[u];
-  }
-
-  while (u != v) {
-    u = parent[u];
-    v = parent[v];
-  }
-
-  return u;
 }
 
 int findKthParent(int u, int k) {
@@ -159,34 +148,6 @@ int findKthParent(int u, int k) {
     if (k & (1 << i)) u = up[u][i];
   }
   return u;
-}
-
-// Using Binary UpLifting
-// logN*logN approach to find LCA
-int fLca(int u, int v) {
-  if (depth[u] < depth[v]) swap(u, v);
-  int diff = depth[u] - depth[v];
-
-  u = findKthParent(u, diff);
-
-  auto ok = [&](int x) {
-    int tu = u, tv = v;
-    tu = findKthParent(tu, x);
-    tv = findKthParent(tv, x);
-    return (tu == tv);
-  };
-
-  int l = 0, r = depth[u], ans = -1;
-  while (l <= r) {
-    int mid = (l + r) / 2;
-    if (ok(mid)) {
-      r = mid - 1;
-      ans = mid;
-    } else
-      l = mid + 1;
-  }
-
-  return findKthParent(u, ans);
 }
 
 // logN way of doing it
@@ -212,43 +173,27 @@ int lca(int u, int v) {
 
 signed main() {
   code_brains;
-  cin >> n;
-  up = vvi(n, vi(log2(n) + 5));
-  ad = vvi(n);
-  parent = depth = vi(n, 0);
-  for (int i = 0; i < n; i++) {
-    int t;
-    cin >> t;
-    while (t--) {
-      int tt;
-      cin >> tt;
-      parent[tt] = i;
-      ad[i].pb(tt);
-    }
-  }
-
-  dfs(0, -1);
-
-  // debug(depth);
-
-  // preComputation Steps
-  for (int i = 0; i < n; i++) up[i][0] = parent[i];
-
-  for (int j = 1; j <= log2(n); j++) {
-    for (int i = 0; i < n; i++) {
-      up[i][j] = up[up[i][j - 1]][j - 1];
-    }
-  }
-
-  // debug(up);
-
   int q;
-  cin >> q;
+  cin >> n >> q;
+  up = vvi(n + 1, vi(log2(n) + 5));
+  ad = vvi(n + 1);
+  depth = vi(n + 1, 0);
+
+  for (int i = 0; i < n - 1; i++) {
+    int u, v;
+    cin >> u >> v;
+    ad[u].pb(v), ad[v].pb(u);
+  }
+
+  // debug(ad);
+  dfs(1, -1);
+
   while (q--) {
     int u, v;
     cin >> u >> v;
-    // cout << findLca(u, v) << '\n';
-    cout << lca(u, v) << '\n';
+    int anc = lca(u, v);
+    // debug(anc);
+    cout << depth[u] + depth[v] - (2 * depth[anc]) << '\n';
   }
   return 0;
 }
