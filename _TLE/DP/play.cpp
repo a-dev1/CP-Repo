@@ -143,23 +143,26 @@ int fib2(int n) {
 }
 
 int fibIt(int n) {
-  int dp[n + 1];
+  int dp[n + 1];  // state
+  // when we define a state we also defines -> what does this state signifies
+  // dp[n] is nth fibonacci no.
 
+  // Base Case
   dp[1] = dp[2] = 1;
 
   for (int i = 3; i <= n; i++) {
-    dp[i] = dp[i - 1] + dp[i - 2];
+    dp[i] = dp[i - 1] + dp[i - 2];  // transition
   }
 
   return dp[n];
 }
 
-//iterative solution after space optimization
+// iterative solution after space optimization
 int fibIt2(int n) {
   int ans, t1 = 1, t2 = 1;
-  if(n == 1 || n == 2) return 1;
+  if (n == 1 || n == 2) return 1;
 
-  for(int i = 3; i <= n; i++) {
+  for (int i = 3; i <= n; i++) {
     ans = t1 + t2;
     t1 = t2;
     t2 = ans;
