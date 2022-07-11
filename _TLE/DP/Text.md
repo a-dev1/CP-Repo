@@ -70,7 +70,7 @@ dp[n-1][0] or dp[n-1][1] we have to choose the maximum
 thus max(dp[n-1][0], dp[n-1][1]);
 
 
-----------------------------
+------------------------------------------
 Another approach to solve the same problem
 
 
