@@ -123,10 +123,49 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+void merge(vi &arr, int start, int mid, int end) {
+  int s1 = mid - start + 1;
+  int s2 = end - mid;
+
+  vi arr1(s1), arr2(s2);
+  for (int i = 0; i < s1; i++) arr1[i] = arr[i + start];
+
+  for (int i = 0; i < s2; i++) arr2[i] = arr[mid + 1 + i];
+
+  int i = 0, j = 0, k = start;
+  while (i < s1 && j < s2) {
+    if (arr1[i] < arr2[j]) {
+      arr[k] = arr1[i];
+      i++;
+    } else {
+      arr[k] = arr2[j];
+      j++;
+    }
+    k++;
+  }
+
+  while (i < s1) arr[k] = arr1[i], i++, k++;
+
+  while (j < s2) arr[k] = arr2[j], j++, k++;
+}
+
+void mergeSort(vi &arr, int start, int end) {
+  // if start and end becomes equal i don't want to break it more
+  if (start >= end) return;
+  int mid = (start + end) / 2;
+
+  mergeSort(arr, start, mid);
+  mergeSort(arr, mid + 1, end);
+
+  merge(arr, start, mid, end);
+}
 
 signed main() {
   code_brains;
-  vector<int> arr = {1, 2, 3, 4, 5};
+  vector<int> arr = {4, 5, 1, 3, 10, 9};
+  mergeSort(arr, 0, arr.size() - 1);
+
+  for(auto i : arr) cout << i << " ";
   return 0;
 }
 
