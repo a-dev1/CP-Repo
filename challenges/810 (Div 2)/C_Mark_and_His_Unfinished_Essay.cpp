@@ -123,64 +123,70 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// Sort by first no.
-bool sortbysec(pair<int, int> &a, pair<int, int> &b) {
-  if (a.first != b.first) return a < b;
-  return a.second > b.second;
+#define mp make_pair
+
+bool inRange(ll x, ll n) { return (x <= n); }
+
+ll search(ll x, vvl &arr, ll start) {
+  ll i = start;
+
+  for (; i >= 0; i--) {
+    if (arr[i][1] <= x && x <= arr[i][3]) {
+      break;
+    }
+  }
+
+  ll diff = x - arr[i][1];
+  return arr[i][2] + diff;
 }
 
 signed main() {
   code_brains;
-  ll t;
+  int t;
   cin >> t;
   while (t--) {
-    // total cake = no. of pairs of friends such that both members invited
-    ll n, m;
-    cin >> n >> m;
-    vector<ll> val(n);
-    for (auto &i : val) cin >> i;
+    ll n, c, q;
+    cin >> n >> c >> q;
+    vector<char> str(n);
+    for(char &c : str) cin >> c;
 
-    vector<ll> freq(n, 0);
+    vector<pi> range;
+    vector<pi> real;
 
-    vector<pair<ll, pair<ll, ll>>> arr;
-    for (ll i = 0; i < m; i++) {
-      ll a, b;
-      cin >> a >> b;
-      a--, b--;
-      freq[a]++;
-      freq[b]++;
-      arr.push_back(make_pair(val[a] + val[b], make_pair(a, b)));
+    int tt = c;
+    //mark
+    //[1 4] [5 7] [3 8]
+    //[5 8] [9 11] [...] range
+    //                   real
+    //len+1 (len + r - l + 1)
+
+    int len = str.size();
+
+    while(tt--) {
+      int l, r;
+      cin >> l >> r;
+      real.pb({l, r});
+      range.pb({len + 1, (len + r - l + 1)});
+      len += r - l + 1; 
     }
 
-    // sort(all(arr));
-    // debug(arr);
-    // debug(freq);
+    while(q--) {
+      int k;
+      cin >> k;
 
-    if (m % 2 == 0) {
-      cout << 0 << "\n";
-    } else {
-      ll big = arr[0].fi, ans = 1e12;
-      int i = 0;
-
-      while (i < m) {
-        ll a = arr[i].se.fi, b = arr[i].se.se;
-        // debug(a); debug(b);
-        if (freq[a] % 2 != 0 && freq[b] % 2 != 0) {
-          ans = min(ans, min(val[a], val[b]));
-        } else if (freq[a] % 2 != 0)
-          ans = min(ans, val[a]);
-        else if (freq[b] % 2 != 0)
-          ans = min(ans, val[b]);
-        else {
-          ans = min(ans, (val[a] + val[b]));
+      for(int i = range.size() - 1; i >= 0; i--) {
+        if(k >= range[i].fi && k <= range[i].se) {
+          k = real[i].fi + (k - range[i].fi);
         }
-        i++;
       }
 
-      cout << ans << "\n";
+      cout << str[k-1] << "\n";
     }
   }
   return 0;
 }
+
+//[0 1 1 1 1 0 0 1 0 1 1]
+//
 
 ///////////////////////////////////////////////////////////////
