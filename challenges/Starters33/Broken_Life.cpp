@@ -196,6 +196,7 @@ signed main() {
         str1[i + 1] = str1[i];
       }
     }
+
     // right to left;
     for (int i = n1 - 1; i >= 0; i--) {
       if (i != 0 && str1[i] != '?' && str1[i - 1] == '?') {

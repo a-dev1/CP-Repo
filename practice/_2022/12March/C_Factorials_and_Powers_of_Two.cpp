@@ -27,7 +27,7 @@ const int MOD = 1e9 + 7;
 #define se second
 #define bg begin()
 #define ed end()
-// #define set_bits __builtin_popcountint
+#define set_bits __builtin_popcountint
 // #define set_bits __builtin_popcountll
 #define vl vector<ll>
 #define vi vector<int>
@@ -126,7 +126,7 @@ signed main() {
     cin >> n;
     ll ans = n;
 
-    for (ll i = 0; i < power(2, 14); i++) {
+    for (ll i = 0; i < (1ll << 14); i++) {
       ll temp = 0;
 
       ll shit = i;

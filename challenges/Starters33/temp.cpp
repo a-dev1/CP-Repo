@@ -122,7 +122,13 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
-
+  int t;  
+  cin >> t;
+  while(t--) {
+    int x;
+    cin >> x;
+    cout << (x%10) << '\n';
+  }
   return 0;
 }
 

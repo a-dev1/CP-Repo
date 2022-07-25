@@ -16,12 +16,6 @@ public:
               }
          }
         
-        // for(int i = 1; i <= log2(n); i++) {
-        //     for(int j = 0; j < n; j++) {
-        //         if(up[j][i-1] == -1) up[j][i] = -1;
-        //         else up[j][i] = up[ up[j][i-1] ][j-1];
-        //     }
-        // }
 
      }
     

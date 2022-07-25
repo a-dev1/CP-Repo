@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"f:\\CP\\Git_CP\\challenges\\789 (Div 2)\\A.cpp","tests":[{"id":1652020850638,"input":"3\n3\n1 2 3\n3\n1 2 2\n3\n1 2 0","output":""},{"id":1652020881057,"input":"1\n2\n1 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\challenges\\789 (Div 2)\\A.cpp","group":"local","local":true}

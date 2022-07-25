@@ -6,23 +6,31 @@ const ll MAX_N = 1e6;
 const ll mod = 1e9 + 7;
 
 ll fact[MAX_N];
-ll power(ll a, ll b);
+ll power(ll b, ll p);
 // Using Fermit's Theorem
 ll inverse(ll a) { return power(a, mod - 2); }
 ll modA(ll a, ll b) { return ((a % mod) + (b % mod)) % mod; }
 ll modM(ll a, ll b) { return ((a % mod) * (b % mod)) % mod; }
 ll modS(ll a, ll b) { return ((a % mod) - (b % mod)) % mod; }
 ll modD(ll a, ll b) { return ((a % mod) * (inverse(b) % mod)) % mod; }
-ll power(ll a, ll b) {
-  ll ans = 1, temp = a;
-  while (b) {
-    if (b & 1) ans = modM(ans, temp);
-    b >>= 1;
+
+ll power(ll b, ll p) {
+  ll res = 1, temp = b;
+  while (p) {
+    if (p & 1) res = modM(res, temp);
+    p >>= 1;
     temp = modM(temp, temp);
   }
-  return ans;
+  return res;
 }
 
+// ll power(ll b, ll p) {
+//   if (p == 0) return 1;
+//   ll ans = power(b, p / 2);
+//   ans = modM(ans , ans);
+//   ans = modM(ans, (p % 2 == 1 ? b : 1));
+//   return ans;
+// }
 // L-() and how?
 // ll inverse(ll a) { return power(a, mod - 2); }
 
@@ -42,6 +50,7 @@ ll nCr(ll n, ll r) {
 
 int main() {
   calculate_factorial();
-  cout << nCr(10, 5);
+  // cout << nCr(10, 5);
+  cout << power(2, 5);
   return 0;
 }

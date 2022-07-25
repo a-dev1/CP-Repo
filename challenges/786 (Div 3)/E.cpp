@@ -131,7 +131,7 @@ signed main() {
 
   for (int i = 0; i < n - 1; i++) {
     ll mx = max(arr[i], arr[i + 1]), mn = min(arr[i], arr[i + 1]);
-    
+
     if (mx > 2 * mn) {
       ans1 = min(ans1, (mx + 1) / 2);
     } else {
@@ -152,12 +152,7 @@ signed main() {
 
   ll ans2 = ((biggest + 1) / 2) + (big + 1) / 2;
 
-  // ll ans3 = (max(a, b) - abs(a - b));
-  // ans3 += (abs(a - b) + 1) / 2;
   ll ans3 = a / 2 + b / 2 + (((a & 1) || (b & 1)) ? 1 : 0);
-  // debug(ans1);
-  // debug(ans2);
-  // debug(ans3);
 
   cout << min(ans1, min(ans2, ans3)) << '\n';
 

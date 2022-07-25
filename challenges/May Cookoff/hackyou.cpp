@@ -134,22 +134,8 @@ signed main() {
     int n;
     cin >> n;
 
-    if (n == 1 || n == 2) {
-      cout << 1 << '\n';
-      continue;
-    }
-
-    if (n == 3) {
-      cout << 2 << '\n';
-      continue;
-    }
-
-    if (n == 4 || n == 5) {
-      cout << n << '\n';
-      continue;
-    }
-
-    cout << n - ((n / 3) - 1) << '\n';
+    if(n == 2 || n == 3) cout << n-1 << '\n';
+    else cout << n << '\n';
   }
   return 0;
 }

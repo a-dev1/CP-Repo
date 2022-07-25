@@ -143,7 +143,7 @@ signed main() {
       cin >> temp;
       arr[temp]++, temp--;
     }
-
+ 
     if (m < k) {
       cout << "NO\n";
       continue;

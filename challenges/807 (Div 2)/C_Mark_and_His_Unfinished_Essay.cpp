@@ -127,42 +127,44 @@ void _print(map<T, V> v) {
 
 bool inRange(ll x, ll n) { return (x <= n); }
 
-ll search(ll x, vvl &arr) {
-  int i = 0;
-  bool found = false;
-  for (; i < arr.size(); i++) {
+ll search(ll x, vvl &arr, ll start) {
+  ll i = start;
+
+  for (; i >= 0; i--) {
     if (arr[i][1] <= x && x <= arr[i][3]) {
-      found = true;
       break;
     }
   }
-  if(found) {
-    ll diff = x - arr[i][1];
-    return arr[i][2] + diff;
-  }
-  return 0;
+
+  ll diff = x - arr[i][1];
+  return arr[i][2] + diff;
 }
 
 signed main() {
   code_brains;
   int t;
   cin >> t;
-  // 1000 * (1e4 * 1e5)
   while (t--) {
     ll n, c, q;
     cin >> n >> c >> q;
     string str;
     cin >> str;
 
-    vvl arr(c + 1, vl(5, 0));
+    vvl arr(c + 10, vl(10, 0));
+    vl last;
 
     arr[0][1] = 1;
     arr[0][2] = 1;
     arr[0][3] = n;
     arr[0][4] = n;
 
-    int i = 0;
-    while (c--) {
+    last.pb(n);
+
+    ll i = 0;
+    ll tempc = c;
+    //arr[i][1] => l
+    //arr[i][3] => r
+    while (tempc--) {
       ll l, r;
       cin >> l >> r;
 
@@ -176,11 +178,8 @@ signed main() {
       arr[i][2] = l;
       arr[i][3] = tr;
       arr[i][4] = r;
+      last.pb(tr);
     }
-
-    // 1 -> left
-    // 3 -> right
-    // debug(arr);
 
     while (q--) {
       int idx;
@@ -190,7 +189,17 @@ signed main() {
         if (inRange(idx, n))
           break;
         else {
-          idx = search(idx, arr);
+          auto lower = lower_bound(last.begin(), last.end(), idx);
+
+          ll i = lower - last.begin();
+
+          if (arr[i][1] <= idx && idx <= arr[i][3]) {
+            i = i;
+          } else {
+            i--;
+          }
+
+          idx = arr[i][2] + (idx - arr[i][1]);
         }
       }
 

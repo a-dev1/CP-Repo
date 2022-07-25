@@ -123,6 +123,8 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+vi ans(100005, 0);
+
 void merge(vi &arr, int start, int mid, int end) {
   int s1 = mid - start + 1;
   int s2 = end - mid;
@@ -139,6 +141,7 @@ void merge(vi &arr, int start, int mid, int end) {
       i++;
     } else {
       arr[k] = arr2[j];
+      ans[k]++;
       j++;
     }
     k++;
@@ -162,10 +165,14 @@ void mergeSort(vi &arr, int start, int end) {
 
 signed main() {
   code_brains;
-  vector<int> arr = {4, 5, 1, 3, 10, 9};
+  vector<int> arr = {5, 2, 6, 1};
   mergeSort(arr, 0, arr.size() - 1);
 
-  for(auto i : arr) cout << i << " ";
+  // ans = vi(arr.size(), 0);
+
+  for (auto i : arr) cout << i << " ";
+  cout << '\n';
+  for (int i = 0; i < arr.size(); i++) cout << ans[i] << " ";
   return 0;
 }
 

@@ -119,22 +119,6 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// int nCr(int n, int r) {
-//   return
-// }
-// void calculate_factorial() {
-//   fact[0] = 1;
-//   for (int i = 1; i < MAX_N; i++) {
-//     fact[i] = modM(fact[i - 1], i);
-//   }
-// }
-
-// ll nCr(ll n, ll r) {
-//   if (n < 0 || r < 0 || r > n) return 0;
-
-//   ll bottom = modM(minv(fact[r]), minv(fact[n - r]) % mod);
-//   return modM(fact[n], bottom);
-// }
 
 signed main() {
   code_brains;

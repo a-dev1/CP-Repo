@@ -128,28 +128,31 @@ signed main() {
     string str;
     cin >> str;
 
-    map<char, ll> m;
-
-    for (char c : str) {
-      m[c]++;
+    map<char, vi> m;
+    for (int i = 0; i < str.length(); i++) {
+      m[str[i]].push_back(i);
     }
 
-    if (m.size() == 1LL) {
+    bool possible = true;
+
+    for (auto arr : m) {
+      for (int i = 0; i < arr.second.size() - 1; i++) {
+        set<int> s;
+        for (int j = arr.second[i]; j < arr.second[i + 1]; j++) {
+          s.insert(str[j]);
+        }
+        if (s.size() < m.size()) {
+          possible = false;
+          break;
+        }
+      }
+      if (!possible) break;
+    }
+
+    if (possible)
       cout << "YES\n";
-      continue;
-    }
-
-    debug(m);
-    ll big = -1, small = 1e9;
-    for (auto i : m) {
-      big = max(i.second, big);
-      small = min(i.second, small);
-    }
-
-    if (big - small > 1) {
+    else
       cout << "NO\n";
-    } else
-      cout << "YES\n";
   }
   return 0;
 }
