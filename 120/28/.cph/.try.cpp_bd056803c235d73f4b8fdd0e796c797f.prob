@@ -1,0 +1,1 @@
+{"name":"Local: try","url":"f:\\CP\\Git_CP\\120\\28\\try.cpp","tests":[{"id":1658979517269,"input":"5\n3\ncab\ncab\n1\na\nb\n6\nabbabc\nbbaacb\n10\nbcaabababc\ncbbababaac\n2\nba\nab\n\n","output":""},{"id":1659007675971,"input":"1\na\nb","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\CP\\Git_CP\\120\\28\\try.cpp","group":"local","local":true}
