@@ -40,7 +40,7 @@ How to check if a node is an Ancestor/Descendant of another node?
 
 # DFS (Depth First Search)
 --------------------------
-It's not able pre-order, post-order and in-order, these are specifically for binary trees. 
+It's not always pre-order, post-order and in-order, these are specifically for binary trees. 
 
 We go to a node and we kept going down. 
 Code:-

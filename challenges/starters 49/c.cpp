@@ -129,39 +129,28 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n, tt;
-    cin >> n >> tt;
-    vector<ll> arr(tt);
-    map<ll, ll> m;
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    map<ll, ll> mp;
     for (auto &i : arr) {
       cin >> i;
-      m[i]++;
+      mp[i]++;
     }
-    // debug(m);
-    ll l = 1, h = 4e5 + 5, ans = 0;
-    auto ok = [&](ll x) {
-      ll canDone = 0, needed = 0;
-      for (auto i : m) {
-        needed += max(0ll, i.se - x);
-        canDone += max(0ll, x - i.se) / 2;
+
+    if (mp.size() == 1) {
+      cout << (mp[arr[0]] + (ll)1) / (ll)2 << '\n';
+    } else {
+      vl freq;
+      for (auto i : mp) {
+        freq.pb(i.se);
       }
-      return canDone >= needed;
-    };
+      sort(all(freq));
+      // debug(freq);
 
-    while (l <= h) {
-      ll mid = (l + h) / 2;
-      if (ok(mid)) {
-        // debug(mid);
-        ans = mid;
-        h = mid - 1;
-      } else
-        l = mid + 1;
-
-      // debug(l);
-      // debug(h);
+      cout << max(freq[freq.size() - 2], (freq[freq.size() - 1] + 1) / 2)
+           << '\n';
     }
-
-    cout << ans << '\n';
   }
   return 0;
 }

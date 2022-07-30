@@ -129,39 +129,25 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n, tt;
-    cin >> n >> tt;
-    vector<ll> arr(tt);
-    map<ll, ll> m;
-    for (auto &i : arr) {
-      cin >> i;
-      m[i]++;
-    }
-    // debug(m);
-    ll l = 1, h = 4e5 + 5, ans = 0;
-    auto ok = [&](ll x) {
-      ll canDone = 0, needed = 0;
-      for (auto i : m) {
-        needed += max(0ll, i.se - x);
-        canDone += max(0ll, x - i.se) / 2;
-      }
-      return canDone >= needed;
-    };
+    ll n;
+    cin >> n;
+    string arr;
+    cin >> arr;
+    // for (auto &i : arr) cin >> i;
 
-    while (l <= h) {
-      ll mid = (l + h) / 2;
-      if (ok(mid)) {
-        // debug(mid);
-        ans = mid;
-        h = mid - 1;
-      } else
-        l = mid + 1;
+    // vector<ll> arr2(n);
+    // for (auto &i : arr2) cin >> i;
+    string arr2;
+    cin >> arr2;
 
-      // debug(l);
-      // debug(h);
+    int state = 1;
+    for (int i = 0; i < n; i++) {
+      // debug(arr[i]);
+      // debug(arr2[i]);
+      if (arr[i] != arr2[i]) state = (state ? 0 : 1);
     }
 
-    cout << ans << '\n';
+    cout << state << '\n';
   }
   return 0;
 }

@@ -129,38 +129,52 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n, tt;
-    cin >> n >> tt;
-    vector<ll> arr(tt);
-    map<ll, ll> m;
-    for (auto &i : arr) {
-      cin >> i;
-      m[i]++;
-    }
-    // debug(m);
-    ll l = 1, h = 4e5 + 5, ans = 0;
-    auto ok = [&](ll x) {
-      ll canDone = 0, needed = 0;
-      for (auto i : m) {
-        needed += max(0ll, i.se - x);
-        canDone += max(0ll, x - i.se) / 2;
+    int n, m;
+    cin >> n >> m;
+    vvl A(n, vl(m));
+    vvl B(n, vl(m));
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        cin >> A[i][j];
       }
-      return canDone >= needed;
-    };
-
-    while (l <= h) {
-      ll mid = (l + h) / 2;
-      if (ok(mid)) {
-        // debug(mid);
-        ans = mid;
-        h = mid - 1;
-      } else
-        l = mid + 1;
-
-      // debug(l);
-      // debug(h);
     }
 
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        cin >> B[i][j];
+      }
+    }
+
+    ll ans = 0;
+
+    vl kyaLeya(n);
+
+    for (int i = n - 1; i >= 0; i--) {
+      ll sumA = 0, sumB = 0;
+      for (int j = 0; j < m; j++) {
+        sumA += A[i][j];
+      }
+      for (int j = 0; j < m; j++) {
+        sumB += B[i][j];
+      }
+
+      if (sumA >= sumB)
+        kyaLeya[i] = 1;
+      else
+        kyaLeya[i] = 2;
+      ans += max(sumA, sumB);
+    }
+
+    for (int i = 0; i < m; i++) {
+      if (A[0][i] == 0 && kyaLeya[0] == 1) ans += B[0][i];
+    }
+
+    for(int j = 0; j < n; j++) {
+      if(B[j][0] = 0 && kyaLeya[0] == 2) ans += A[j][0];
+    }
+
+    // debug(ans);
     cout << ans << '\n';
   }
   return 0;

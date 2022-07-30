@@ -1,9 +1,0 @@
-Worked on the development of 499Store official React Native-based e-commerce mobile application.
-
-•Developed the my-order section, return & refund (used xRazorpay) pages for the application and reduced customer complaints, which were unable to return products.
-
-•Handled all the return orders with the nimbus APIs. Also implemented a feature to instantiate the refund after the returned product had been received and verified.
-
-•Added new features to the cart page like (custom buttons to increase and decrease the quantity of a product) which provides great customer experience and makes the application more user-friendly.
-
-Created a Whatsapp automation software to send messages to thousands of customers at a time. Which helps to decrease the response time by 90%.

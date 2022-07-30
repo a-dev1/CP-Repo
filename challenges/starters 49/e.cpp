@@ -129,36 +129,55 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n, tt;
-    cin >> n >> tt;
-    vector<ll> arr(tt);
-    map<ll, ll> m;
-    for (auto &i : arr) {
-      cin >> i;
-      m[i]++;
-    }
-    // debug(m);
-    ll l = 1, h = 4e5 + 5, ans = 0;
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    for (auto &i : arr) cin >> i;
+
+    sort(all(arr), desc);
+    ll mx = arr[0];
+
+    vector<ll> need;
+    for (auto i : arr) need.pb(mx - i);
+
+    // vector<ll> prefix(n);
+    // prefix[0] = arr[0];
+    // for (int i = 1; i < n; i++) {
+    //   prefix[i] = prefix[i - 1] + arr[i];
+    // }
+
+    // 5 4 3 1 -> have
+    // 0 1 2 4 -> needed
+    // debug(arr);
+    // debug(need);
     auto ok = [&](ll x) {
-      ll canDone = 0, needed = 0;
-      for (auto i : m) {
-        needed += max(0ll, i.se - x);
-        canDone += max(0ll, x - i.se) / 2;
+      ll extra = 0;
+      for (int i = 0; i < x; i++) {
+        extra += arr[i];
       }
-      return canDone >= needed;
+
+      ll mx = arr[x];
+      ll needed = 0;
+      for (int i = x; i < n; i++) {
+        need[i] = mx - arr[i];
+        needed += need[i];
+      }
+
+      // for (int i = x; i < n; i++) {
+      //   needed += need[i];
+      // }
+
+      return extra >= needed;
     };
 
+    ll l = 0, h = n, ans = 0;
     while (l <= h) {
       ll mid = (l + h) / 2;
       if (ok(mid)) {
-        // debug(mid);
         ans = mid;
         h = mid - 1;
       } else
         l = mid + 1;
-
-      // debug(l);
-      // debug(h);
     }
 
     cout << ans << '\n';

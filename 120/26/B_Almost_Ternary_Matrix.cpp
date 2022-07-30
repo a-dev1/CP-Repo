@@ -129,39 +129,16 @@ signed main() {
   int t;
   cin >> t;
   while (t--) {
-    ll n, tt;
-    cin >> n >> tt;
-    vector<ll> arr(tt);
-    map<ll, ll> m;
-    for (auto &i : arr) {
-      cin >> i;
-      m[i]++;
-    }
-    // debug(m);
-    ll l = 1, h = 4e5 + 5, ans = 0;
-    auto ok = [&](ll x) {
-      ll canDone = 0, needed = 0;
-      for (auto i : m) {
-        needed += max(0ll, i.se - x);
-        canDone += max(0ll, x - i.se) / 2;
-      }
-      return canDone >= needed;
-    };
+    int r, c;
+    cin >> r >> c;
 
-    while (l <= h) {
-      ll mid = (l + h) / 2;
-      if (ok(mid)) {
-        // debug(mid);
-        ans = mid;
-        h = mid - 1;
-      } else
-        l = mid + 1;
+    int hor = c / 2, ver = r / 2;
+    vvi p1 = {{1, 0}, {0, 1}};
+    vvi p2 = {{0, 1}, {1, 0}};
 
-      // debug(l);
-      // debug(h);
-    }
-
-    cout << ans << '\n';
+    vvi ans;
+    ans.pb(p1);
+    debug(ans);
   }
   return 0;
 }
