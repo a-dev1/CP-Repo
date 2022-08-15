@@ -126,11 +126,42 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    ll n, x;
+    cin >> n >> x;
+    unordered_map<ll, ll> mp;
+    vector<ll> arr(n);
+    for (auto &i : arr) {
+      cin >> i;
+      mp[i]++;
+    }
 
-  int x = 7;
-  assert(x == 7);
+    if (mp.size() > x) {
+      cout << -1 << '\n';
+      continue;
+    }
 
-  cout << "Hello World\n";
+    ll mx = -1;
+    vl ans;
+    for (auto i : mp) {
+      mx = max(mx, i.se);
+      ans.pb(i.fi);
+    }
+
+    ll last = ans[sz(ans) - 1];
+
+    while (ans.size() < x) {
+      ans.pb(last);
+    }
+
+    cout << n * ans.size() << '\n';
+    while (n--) {
+      for (auto i : ans) cout << i << " ";
+    }
+    cout << '\n';
+  }
   return 0;
 }
 

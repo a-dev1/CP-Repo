@@ -13,7 +13,7 @@ typedef long double lld;
 
 const int MAX_N = 1e5 + 1;
 const int MOD = 1e9 + 7;
-#define endl "\n"
+// #define endl "\n"
 #define PI 3.1415926535897932384626
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
@@ -123,15 +123,64 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
+int query(int a, int b) {
+  cout << "? " << a << " " << b << endl;
+  int x;
+  cin >> x;
+  return x;
+}
 
 signed main() {
   code_brains;
+  int t;
+  cin >> t;
+  while (t--) {
+    int n;
+    cin >> n;
 
-  int x = 7;
-  assert(x == 7);
+    vi arr(n);
+    for (int i = 1; i <= (1 << n); i++) arr[i - 1] = i;
 
-  cout << "Hello World\n";
+    // int tt = s.size();
+
+    while (arr.size()) {
+      if (arr.size() == 2) {
+        int a = arr[0], b = arr[1];
+        int ans;
+        if (query(a, b) == 1)
+          cout << "! " << a << endl;
+        else
+          cout << "! " << b << endl;
+
+        break;
+      }
+
+      vi temp;
+      for (int i = 0; i < sz(arr); i += 4) {
+        int a = arr[i], b = arr[i + 1], c = arr[i + 2], d = arr[i + 3];
+
+        int cc = query(a, c);
+        if (cc == 1)
+          temp.pb(a), temp.pb(d);
+        else if (cc == 2)
+          temp.pb(c), temp.pb(b);
+        else
+          temp.pb(b), temp.pb(d);
+      }
+      arr = temp;
+    }
+
+    // assert(arr.size() == 2);
+    // if (ans.size() == 1) {
+    //   cout << "! " << ans[0] << endl;
+    //   continue;
+    // } else {
+    //   cout << "! " << ans << endl;
+    // }
+  }
   return 0;
 }
 
 ///////////////////////////////////////////////////////////////
+// 1 2 3 4 5 6 7 8
+// 1

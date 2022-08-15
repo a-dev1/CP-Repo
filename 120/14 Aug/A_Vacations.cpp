@@ -25,9 +25,10 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
+#define pb push_back
 #define bg begin()
 #define ed end()
-#define pb push_back
+#define set_bits __builtin_popcountint
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -126,11 +127,41 @@ void _print(map<T, V> v) {
 
 signed main() {
   code_brains;
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
 
-  int x = 7;
-  assert(x == 7);
+  int ans = 0;
+  for (int i = 0; i < n; i++) {
+    if (arr[i] == 0) {
+      ans++;
+      continue;
+    }
 
-  cout << "Hello World\n";
+    if (i == 0) {
+      if (arr[i] == 0) ans++;
+      continue;
+    }
+
+    if (arr[i] == 1 || arr[i] == 2) {
+      if (arr[i] == arr[i - 1]) {
+        ans++;
+        arr[i] = 0;
+      }
+      continue;
+    }
+
+    if (arr[i] == 3) {
+      if (arr[i - 1] == 2)
+        arr[i] = 1;
+      else if (arr[i - 1] == 1)
+        arr[i] = 2;
+    }
+    // if (arr[i] == 3 && arr[i - 1] == 3) ans++;
+  }
+
+  cout << ans << '\n';
   return 0;
 }
 
