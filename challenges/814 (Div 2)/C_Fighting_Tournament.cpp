@@ -200,7 +200,8 @@ signed main() {
             ans += k;
           } else {
             ll idxNextBig = idx[nextBiggerElement];
-            ans += (idxNextBig - ele - 1);
+
+            ans += min(k, idxNextBig - ele - 1);
           }
         }
       }
