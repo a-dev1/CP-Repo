@@ -35,7 +35,8 @@ int fibo(int n) {
 # 4 things to care about in a dp problem
 1. state       -> clearly understand what does it signify
 2. transition  -> if state is clearly defined, it comes up automatically  {care about the flow of the code}
-3. base case   -> the transition expression will itself give you the base case      {the points at which our transition will not work is our base case.}
+  {it means finding unknown states, using known states}
+3. base case   -> the transition expression will itself give you the base case {the points at which our transition will not work is our base case.}
 4. final sub problem -> 
 
 
@@ -69,9 +70,16 @@ at n-1 th index, either we can include it or not
 dp[n-1][0] or dp[n-1][1] we have to choose the maximum
 thus max(dp[n-1][0], dp[n-1][1]);
 
+-> The state comes up to you automatically when you have solved a lot of DP Problems
 
+if you solved 10 to 20 problems with the  generic technique it will really help you.
+
+(this is shit)
+recursive -> memoize -> tabulate -> space 
 ------------------------------------------
 Another approach to solve the same problem
+
+we can optimize the space bcz there are only 2 variables getting used here.
 
 
 
