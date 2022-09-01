@@ -83,3 +83,8 @@ we can optimize the space bcz there are only 2 variables getting used here.
 
 
 
+-----------------------------------------
+Jab Unique ways count karne ho then it's combination problem obviously &
+try to make things by joining not breaking 
+because you can't keep track of uniques in process of breaking and the subpart of a subproblem can repeat in another. 
+
