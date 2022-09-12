@@ -124,45 +124,51 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// 1st book ka calculate karke, another books ka dp laga ke solve ho sakta.
-// trying tutorial approach first
 
 signed main() {
   code_brains;
-  // the main factor here is money
-  int n, x;
-  cin >> n >> x;
-  int mxPrice = 1e5 + 2;
-  vi price(n + 1, 0), pages(n + 1, 0);
-  vvi dp(n + 1, vi(mxPrice + 1, 0));
-   
+  ll n, m;
 
-  for (int i = 1; i <= n; i++) {
-    cin >> price[i];
-  }
+  cin >> n >> m;
 
-  for (int i = 1; i <= n; i++) cin >> pages[i];
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
 
-  for (int i = 0; i <= n; i++) {
-    for (int money = 0; money < mxPrice; money++) {
-      if (i == 0) {
-        dp[i][money] = 0;
-        continue;
+  vvi dp(n + 1, vi(m + 1, 0));
+
+  // Was able to think of the state
+  // the transition is:
+  // dp[i][j] = how many times an array of size i can be formed with last
+  // element as j if it's not 0 then you can put arr[i]-1, arr[i], arr[i+1]
+  // beside it so i will count how many time we can make (arr[i]-1, arr[i],
+  // arr[i+1])these this can be done using dp easily
+
+  if (arr[0] == 0) {
+    for (ll i = 1; i <= m; i++) dp[0][i] = 1;
+  } else
+    dp[0][arr[0]] = 1;
+
+  for (ll i = 1; i < n; i++) {
+    if (arr[i] != 0) {
+      dp[i][arr[i]] =
+          (dp[i][arr[i]] + (arr[i] - 1 > 0 ? dp[i - 1][arr[i] - 1] : 0)) % MOD;
+      dp[i][arr[i]] = (dp[i][arr[i]] + dp[i - 1][arr[i]]) % MOD;
+      dp[i][arr[i]] =
+          (dp[i][arr[i]] + (arr[i] + 1 <= m ? dp[i - 1][arr[i] + 1] : 0)) % MOD;
+    } else
+      for (ll j = 1; j <= m; j++) {
+        dp[i][j] = (dp[i][j] + (j - 1 > 0 ? dp[i - 1][j - 1] : 0)) % MOD;
+        dp[i][j] = (dp[i][j] + dp[i - 1][j]) % MOD;
+        dp[i][j] = (dp[i][j] + (j + 1 <= m ? dp[i - 1][j + 1] : 0)) % MOD;
       }
-
-      // if picking this book
-      int op1 =
-          ((money - price[i] < 0) ? 0
-                                  : (pages[i] + dp[i - 1][money - price[i]]));
-      // not picking
-      int op2 = dp[i - 1][money];
-
-      dp[i][money] = max(op1, op2);
-    }
   }
 
-  // debug(dp);
-  cout << dp[n][x] << '\n';
+  ll ans = 0;
+  for (int i = 1; i <= m; i++) {
+    ans = (ans + dp[n - 1][i]) % MOD;
+  }
+
+  cout << ans << '\n';
   return 0;
 }
 

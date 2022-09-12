@@ -124,45 +124,33 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// 1st book ka calculate karke, another books ka dp laga ke solve ho sakta.
-// trying tutorial approach first
 
 signed main() {
   code_brains;
-  // the main factor here is money
-  int n, x;
-  cin >> n >> x;
-  int mxPrice = 1e5 + 2;
-  vi price(n + 1, 0), pages(n + 1, 0);
-  vvi dp(n + 1, vi(mxPrice + 1, 0));
-   
+  string s1, s2;
+  cin >> s1 >> s2;
 
-  for (int i = 1; i <= n; i++) {
-    cin >> price[i];
-  }
+  vvi dp(s1.size() + 1, vi(s2.size() + 1, 0));
 
-  for (int i = 1; i <= n; i++) cin >> pages[i];
+  // base case
+  // first string is empty and the another one has n characters ? how many
+  // operations will be there?
+  dp[0][0] = 0;
+  for (int i = 1; i <= s1.size(); i++) dp[i][0] = i;
+  for (int i = 1; i <= s2.size(); i++) dp[0][i] = i;
 
-  for (int i = 0; i <= n; i++) {
-    for (int money = 0; money < mxPrice; money++) {
-      if (i == 0) {
-        dp[i][money] = 0;
-        continue;
+  for (int i = 1; i <= s1.size(); i++) {
+    for (int j = 1; j <= s2.size(); j++) {
+      if (s1[i - 1] == s2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = 1 + min(dp[i - 1][j - 1], min(dp[i - 1][j], dp[i][j - 1]));
+        // 1 + (replace, remove, add)
       }
-
-      // if picking this book
-      int op1 =
-          ((money - price[i] < 0) ? 0
-                                  : (pages[i] + dp[i - 1][money - price[i]]));
-      // not picking
-      int op2 = dp[i - 1][money];
-
-      dp[i][money] = max(op1, op2);
     }
   }
 
-  // debug(dp);
-  cout << dp[n][x] << '\n';
+  cout << dp[s1.size()][s2.size()] << '\n';
   return 0;
 }
 

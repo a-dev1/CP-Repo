@@ -131,7 +131,8 @@ signed main() {
 
   vl coin(n);
   for (auto &i : coin) cin >> i;
-  sort(all(coin));
+  // the array doesn't have to sorted in this
+  // sort(all(coin));
 
   vl dp(x + 1, 0);
   dp[0] = 1;

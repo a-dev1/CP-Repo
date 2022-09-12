@@ -88,3 +88,11 @@ Jab Unique ways count karne ho then it's combination problem obviously &
 try to make things by joining not breaking 
 because you can't keep track of uniques in process of breaking and the subpart of a subproblem can repeat in another. 
 
+======================================
+if you choose a state, try to make a transition if you can't, this is probably a bad state change it. 
+
+A good state is a state which keep tracks of all things. 
+
+------------------------------------------------------
+Solving a DP problem involves coming up with different states and transition see what works and discard the wrong one. 
+

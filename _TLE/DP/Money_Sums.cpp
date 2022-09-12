@@ -124,45 +124,30 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// 1st book ka calculate karke, another books ka dp laga ke solve ho sakta.
-// trying tutorial approach first
 
 signed main() {
   code_brains;
-  // the main factor here is money
-  int n, x;
-  cin >> n >> x;
-  int mxPrice = 1e5 + 2;
-  vi price(n + 1, 0), pages(n + 1, 0);
-  vvi dp(n + 1, vi(mxPrice + 1, 0));
-   
+  ll n;
+  cin >> n;
+  vector<ll> arr(n);
+  for (auto &i : arr) cin >> i;
 
-  for (int i = 1; i <= n; i++) {
-    cin >> price[i];
-  }
+  set<ll> s;
+  s.insert(arr[0]);
 
-  for (int i = 1; i <= n; i++) cin >> pages[i];
-
-  for (int i = 0; i <= n; i++) {
-    for (int money = 0; money < mxPrice; money++) {
-      if (i == 0) {
-        dp[i][money] = 0;
-        continue;
-      }
-
-      // if picking this book
-      int op1 =
-          ((money - price[i] < 0) ? 0
-                                  : (pages[i] + dp[i - 1][money - price[i]]));
-      // not picking
-      int op2 = dp[i - 1][money];
-
-      dp[i][money] = max(op1, op2);
+  for (int i = 1; i < n; i++) {
+    set<ll> temp;
+    for (auto ele : s) {
+      temp.insert(ele + arr[i]);
     }
+    s.insert(arr[i]);
+    for (auto ele : temp) s.insert(ele);
+    // debug(s);
   }
 
-  // debug(dp);
-  cout << dp[n][x] << '\n';
+  cout << s.size() << '\n';
+  for (auto i : s) cout << i << " ";
+  cout << '\n';
   return 0;
 }
 

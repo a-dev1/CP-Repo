@@ -25,10 +25,9 @@ const int MOD = 1e9 + 7;
 #define desc greater<int>()
 #define fi first
 #define se second
-#define pb push_back
 #define bg begin()
 #define ed end()
-#define set_bits __builtin_popcountint
+#define pb push_back
 #define setBits __builtin_popcount
 #define setBitsll __builtin_popcountll
 #define vl vector<ll>
@@ -124,46 +123,33 @@ void _print(map<T, V> v) {
 }
 
 ///////////////////////////////////////////////////////////////
-// 1st book ka calculate karke, another books ka dp laga ke solve ho sakta.
-// trying tutorial approach first
 
 signed main() {
   code_brains;
-  // the main factor here is money
-  int n, x;
-  cin >> n >> x;
-  int mxPrice = 1e5 + 2;
-  vi price(n + 1, 0), pages(n + 1, 0);
-  vvi dp(n + 1, vi(mxPrice + 1, 0));
-   
+  int r, c;
+  cin >> r >> c;
+  vvi dp(r + 1, vi(c + 1, INT_MAX));
 
-  for (int i = 1; i <= n; i++) {
-    cin >> price[i];
-  }
+  for (int i = 0; i <= r; i++) {
+    for (int j = 0; j <= c; j++) {
+      if (i == j)
+        dp[i][j] = 0;
+      else {
+        // minimum among the vertical or horizontal cut
 
-  for (int i = 1; i <= n; i++) cin >> pages[i];
+        //#Vertical cut
+        for (int k = 1; k < i; k++)
+          dp[i][j] = min(dp[i][j], 1 + dp[k][j]  + dp[i - k][j]);
 
-  for (int i = 0; i <= n; i++) {
-    for (int money = 0; money < mxPrice; money++) {
-      if (i == 0) {
-        dp[i][money] = 0;
-        continue;
+        //#Horizontal cut
+        for (int k = 1; k < j; k++)
+          dp[i][j] = min(dp[i][j], 1 + dp[i][k] + dp[i][j - k]);
       }
-
-      // if picking this book
-      int op1 =
-          ((money - price[i] < 0) ? 0
-                                  : (pages[i] + dp[i - 1][money - price[i]]));
-      // not picking
-      int op2 = dp[i - 1][money];
-
-      dp[i][money] = max(op1, op2);
     }
   }
-
-  // debug(dp);
-  cout << dp[n][x] << '\n';
+  cout << dp[r][c] << '\n';
   return 0;
 }
 
 ///////////////////////////////////////////////////////////////
+#cut shot, goo skills technologies, metal

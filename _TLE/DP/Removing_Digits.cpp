@@ -140,7 +140,7 @@ signed main() {
     n -= mx;
     cnt++;
     // debug(n);
-  }
+  } 
 
   cout << cnt << '\n';
   return 0;
